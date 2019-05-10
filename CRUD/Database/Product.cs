@@ -14,12 +14,12 @@ namespace CRUD
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public string CategoriesId { get; set; }
+        public int CategoriesId { get; set; }
         public int Price { get; set; }
         public int Discount { get; set; }
         public string Description { get; set; }
 
-        public Product(long id, string name, string categoriesID, int price, int discount, string description)
+        public Product(long id, string name, int categoriesID, int price, int discount, string description)
         {
             Id = id;
             Name = name;

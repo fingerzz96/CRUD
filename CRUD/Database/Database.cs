@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -181,14 +182,14 @@ namespace CRUD
                     {
                         while (reader.Read())
                         {
-                            long id = (long) reader[Product.IdString];
-                            string name = (string) reader[Product.NameString];
-                            string categories = (string) reader[Product.CategoriesIdString];
-                            int price = (int) reader[Product.PriceString];
-                            int discount = (int) reader[Product.DiscountString];
-                            string description = (string) reader[Product.DescriptionString];
+                            long id = Convert.ToInt32(reader[Product.IdString]);
+                            string name = Convert.ToString((string) reader[Product.NameString]);
+                            int categorieId = Convert.ToInt32(reader[Product.CategoriesIdString]);
+                            int price = Convert.ToInt32(reader[Product.PriceString]);
+                            int discount = Convert.ToInt32(reader[Product.DiscountString]);
+                            string description = Convert.ToString(reader[Product.DescriptionString]);
 
-                            Product product = new Product(id, name, categories, price, discount, description);
+                            Product product = new Product(id, name, categorieId, price, discount, description);
                             products.Add(product);
                         }
                     }

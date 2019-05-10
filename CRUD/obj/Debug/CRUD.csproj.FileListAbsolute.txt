@@ -1,0 +1,13 @@
+F:\OPN\CRUD\CRUD\bin\Debug\CRUD.exe
+F:\OPN\CRUD\CRUD\bin\Debug\CRUD.pdb
+F:\OPN\CRUD\CRUD\bin\Debug\System.Data.SQLite.dll
+F:\OPN\CRUD\CRUD\bin\Debug\System.Data.SQLite.xml
+F:\OPN\CRUD\CRUD\bin\Debug\System.Data.SQLite.dll.config
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.csprojAssemblyReference.cache
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.Form1.resources
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.csproj.GenerateResource.cache
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.csproj.CoreCompileInputs.cache
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.csproj.CopyComplete
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.exe
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.pdb
+F:\OPN\CRUD\CRUD\obj\Debug\CRUD.ProductForm.resources

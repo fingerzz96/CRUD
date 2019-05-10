@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace CRUD
@@ -12,10 +10,10 @@ namespace CRUD
             InitializeComponent();
         }
 
-        public string Name { get; private set; }
-        public int CategorieId { get; private set; }
-        public int Price { get; private set; }
-        public string Description { get; private set; }
+        public new string Name { get; set; }
+        public int CategorieId { get; set; }
+        public int Price { get; set; }
+        public string Description { get; set; }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
@@ -33,7 +31,7 @@ namespace CRUD
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(@"Error of validation of Categories Id number" + exception.Message);
+                    MessageBox.Show(@"Error of validation of Categories Id number!" + exception.Message);
                     return;
                 }
 
@@ -43,7 +41,7 @@ namespace CRUD
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(@"Error of validation of price" + exception.Message);
+                    MessageBox.Show(@"Error of validation of price!" + exception.Message);
 
                     return;
                 }
@@ -59,7 +57,7 @@ namespace CRUD
         {
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
             {
-                errorProviderName.SetError(textBoxName, "Name cannot be null!");
+                errorProviderName.SetError(textBoxName, "Name cannot be null! ");
             }
             else
             {

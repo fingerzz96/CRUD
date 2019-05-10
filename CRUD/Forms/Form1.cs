@@ -51,6 +51,30 @@ namespace CRUD
             }
         }
 
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogDatabase.ShowDialog()==DialogResult.OK)
+            {
+                database = new Database(openFileDialogDatabase.FileName);
+
+                if (!database.IsDatabaseCreated())
+                {
+                    database.CreateDatabase();
+                }
+
+                try
+                {
+                    _products = database.ReturnAllAdminProducts();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Error during selecting products! " + exception.Message);
+                }
+                
+                ConnectList();
+            }
+        }
+
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             if (database != null)
@@ -66,7 +90,7 @@ namespace CRUD
                     }
                     catch (Exception exception)
                     {
-                        MessageBox.Show("During inserting the data came unexpected error!" + exception.Message);
+                        MessageBox.Show("During inserting the data came unexpected error! " + exception.Message);
                     }
                 }
             }

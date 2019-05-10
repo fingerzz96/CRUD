@@ -1,0 +1,7 @@
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/obj/Debug/.NETFramework,Version=v4.7.2.AssemblyAttribute.cs
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/bin/Debug/CRUD.pdb
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/bin/Debug/CRUD.exe
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/obj/Debug/CRUD.exe
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/obj/Debug/CRUD.pdb
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/bin/Debug/System.Data.SQLite.dll
+/home/l_slavkovic_raco/RiderProjects/CRUD/CRUD/obj/Debug/.NETFramework,Version=v4.7.AssemblyAttribute.cs
