@@ -9,7 +9,7 @@ namespace CRUD
         public const string CustomerIdString = "customerID";
         public const string PriceString = "price";
         public const string StateIdString = "stateID";
-        
+
         public long Id { get; set; }
         public long CustomerId { get; set; }
         public int Price { get; set; }

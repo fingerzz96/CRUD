@@ -6,7 +6,7 @@ namespace CRUD
         public const string IdString = "customerID";
         public const string NameString = "name";
         public const string AddressString = "address";
-        
+
         public long Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

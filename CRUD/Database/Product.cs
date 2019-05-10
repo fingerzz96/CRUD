@@ -7,7 +7,7 @@ namespace CRUD
         public const string TableName = "Product";
         public const string IdString = "productID";
         public const string NameString = "name";
-        public const string CategoriesString = "categoriesID";
+        public const string CategoriesIdString = "categoriesID";
         public const string PriceString = "price";
         public const string DiscountString = "discount";
         public const string DescriptionString = "description";
@@ -19,7 +19,7 @@ namespace CRUD
         public int Discount { get; set; }
         public string Description { get; set; }
 
-        public Product(long id, string name, string categoriesID, int price,int discount, string description)
+        public Product(long id, string name, string categoriesID, int price, int discount, string description)
         {
             Id = id;
             Name = name;
@@ -27,12 +27,11 @@ namespace CRUD
             Price = price;
             Discount = discount;
             Description = description;
-
         }
 
         public override string ToString()
         {
-            return $"Id: {Id}, Name: {Name}, Categories: {CategoriesId}," + 
+            return $"Id: {Id}, Name: {Name}, Categories: {CategoriesId}," +
                    $" Price: {Price}, Description: {Description}";
         }
     }

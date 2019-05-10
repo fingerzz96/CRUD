@@ -5,7 +5,7 @@ namespace CRUD
         public const string TableName = "Categories";
         public const string IdString = "categoriesID";
         public const string NameString = "name";
-        
+
         public int Id { get; set; }
         public string Name { get; set; }
 
