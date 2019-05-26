@@ -61,7 +61,7 @@ namespace CRUD
             }
             else
             {
-                errorProviderName.SetError(textBoxName, String.Empty);
+                return true;
             }
 
             return false;
@@ -80,7 +80,7 @@ namespace CRUD
             }
             else
             {
-                errorProviderPrice.SetError(textBoxPrice, String.Empty);
+                return true;
             }
 
 
@@ -100,7 +100,7 @@ namespace CRUD
             }
             else
             {
-                errorProviderCategorieId.SetError(textBoxCategorieId, String.Empty);
+                return true;
             }
 
             return false;
@@ -114,7 +114,7 @@ namespace CRUD
             }
             else
             {
-                errorProviderName.SetError(textBoxName, String.Empty);
+                return true;
             }
 
             return false;

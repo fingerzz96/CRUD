@@ -10,12 +10,12 @@ namespace CRUD
         public const string PriceString = "price";
 
         public long Id { get; set; }
-        public Orders OrdersId { get; set; }
-        public Product ProductId { get; set; }
+        public long OrdersId { get; set; }
+        public long ProductId { get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
 
-        public Items(long id, Orders ordersId, Product productId, int count, int price)
+        public Items(long id, long ordersId, long productId, int count, int price)
         {
             Id = id;
             OrdersId = ordersId;
