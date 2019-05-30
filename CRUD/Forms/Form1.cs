@@ -87,6 +87,8 @@ namespace CRUD
                     {
                         database.InsertProduct(productForm.Name, productForm.CategorieId, productForm.Price,
                             productForm.Description);
+                        _products = database.ReturnAllAdminProducts();
+                        ConnectList();
                     }
                     catch (Exception exception)
                     {
