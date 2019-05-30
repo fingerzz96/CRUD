@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace CRUD
@@ -17,13 +18,13 @@ namespace CRUD
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (this.ValidateChildren(ValidationConstraints.Enabled)
+            if (ValidateChildren(ValidationConstraints.Enabled)
                 && ValidateName()
                 && ValidateCategorieId()
                 && ValidatePrice()
                 && ValidateDescription())
             {
-                this.Name = this.textBoxName.Text;
+                Name = textBoxName.Text;
 
                 try
                 {
@@ -46,7 +47,7 @@ namespace CRUD
                     return;
                 }
 
-                this.Description = this.textBoxDescription.Text;
+                Description = textBoxDescription.Text;
 
                 DialogResult = DialogResult.OK;
                 Close();
@@ -62,8 +63,8 @@ namespace CRUD
             }
             else
             {
-                errorProviderDescription.SetError(this.textBoxDescription, String.Empty);
-                OK = true;
+                errorProviderDescription.SetError(textBoxDescription, String.Empty);
+                return true;
             }
 
             return false;
@@ -83,8 +84,8 @@ namespace CRUD
             }
             else
             {
-                errorProviderPrice.SetError(this.textBoxPrice, String.Empty);
-                OK = true;
+                errorProviderPrice.SetError(textBoxPrice, String.Empty);
+                return true;
             }
 
 
@@ -94,7 +95,6 @@ namespace CRUD
         private bool ValidateCategorieId()
         {
             uint id = 0;
-            bool OK = false;
             if (String.IsNullOrWhiteSpace(textBoxCategorieId.Text))
             {
                 errorProviderCategorieId.SetError(textBoxCategorieId, "Categorie's Id cannot be null!");
@@ -105,8 +105,8 @@ namespace CRUD
             }
             else
             {
-                errorProviderCategorieId.SetError(this.textBoxCategorieId, String.Empty);
-                OK = true;
+                errorProviderCategorieId.SetError(textBoxCategorieId, String.Empty);
+                return true;
             }
 
             return false;
@@ -121,36 +121,36 @@ namespace CRUD
             }
             else
             {
-                errorProviderName.SetError(this.textBoxName, String.Empty);
-                OK = true;
+                errorProviderName.SetError(textBoxName, String.Empty);
+                return true;
             }
 
             return false;
         }
 
-        private void textBoxName_TextChanged(object sender, EventArgs e)
+        private void textBoxName_TextChanged(object sender, CancelEventArgs e)
         {
             ValidateName();
         }
 
-        private void textBoxCategorieId_TextChanged(object sender, EventArgs e)
+        private void textBoxCategorieId_TextChanged(object sender, CancelEventArgs e)
         {
             ValidateCategorieId();
         }
 
-        private void textBoxPrice_TextChanged(object sender, EventArgs e)
+        private void textBoxPrice_TextChanged(object sender, CancelEventArgs e)
         {
             ValidateDescription();
         }
 
-        private void textBoxDescription_TextChanged(object sender, EventArgs e)
+        private void textBoxDescription_TextChanged(object sender, CancelEventArgs e)
         {
             ValidatePrice();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
