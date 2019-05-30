@@ -38,8 +38,8 @@ namespace CRUD
             this.labelDescription = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxCategorieId = new System.Windows.Forms.TextBox();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.errorProviderName = new System.Windows.Forms.ErrorProvider(this.components);
@@ -51,81 +51,54 @@ namespace CRUD
             ((System.ComponentModel.ISupportInitialize) (this.errorProviderPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.errorProviderDescription)).BeginInit();
             this.SuspendLayout();
-            // 
-            // labelName
-            // 
             this.labelName.Location = new System.Drawing.Point(13, 29);
             this.labelName.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(100, 23);
             this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
-            // 
-            // labelCategorieId
-            // 
             this.labelCategorieId.Location = new System.Drawing.Point(13, 69);
             this.labelCategorieId.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelCategorieId.Name = "labelCategorieId";
             this.labelCategorieId.Size = new System.Drawing.Size(100, 23);
             this.labelCategorieId.TabIndex = 1;
             this.labelCategorieId.Text = "CategorieId";
-            // 
-            // labelPrice
-            // 
             this.labelPrice.Location = new System.Drawing.Point(13, 115);
             this.labelPrice.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(100, 23);
             this.labelPrice.TabIndex = 2;
             this.labelPrice.Text = "Price";
-            // 
-            // labelDescription
-            // 
             this.labelDescription.Location = new System.Drawing.Point(13, 155);
             this.labelDescription.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(100, 23);
             this.labelDescription.TabIndex = 3;
             this.labelDescription.Text = "Description";
-            // 
-            // textBoxName
-            // 
             this.textBoxName.Location = new System.Drawing.Point(120, 27);
             this.textBoxName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(230, 23);
             this.textBoxName.TabIndex = 4;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
-            // 
-            // textBoxCategorieId
-            // 
             this.textBoxCategorieId.Location = new System.Drawing.Point(120, 69);
             this.textBoxCategorieId.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxCategorieId.Name = "textBoxCategorieId";
             this.textBoxCategorieId.Size = new System.Drawing.Size(230, 23);
             this.textBoxCategorieId.TabIndex = 5;
             this.textBoxCategorieId.TextChanged += new System.EventHandler(this.textBoxCategorieId_TextChanged);
-            // 
-            // textBoxDescription
-            // 
-            this.textBoxDescription.Location = new System.Drawing.Point(120, 155);
-            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(229, 23);
-            this.textBoxDescription.TabIndex = 6;
-            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
-            // 
-            // textBoxPrice
-            // 
-            this.textBoxPrice.Location = new System.Drawing.Point(120, 112);
+            this.textBoxPrice.Location = new System.Drawing.Point(120, 115);
             this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(230, 23);
-            this.textBoxPrice.TabIndex = 7;
-            this.textBoxPrice.TextChanged += new System.EventHandler(this.textBoxPrice_TextChanged);
-            // 
-            // buttonOk
-            // 
+            this.textBoxPrice.Size = new System.Drawing.Size(229, 23);
+            this.textBoxPrice.TabIndex = 6;
+            this.textBoxPrice.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
+            this.textBoxDescription.Location = new System.Drawing.Point(120, 152);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(230, 23);
+            this.textBoxDescription.TabIndex = 7;
+            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxPrice_TextChanged);
             this.buttonOk.Location = new System.Drawing.Point(19, 198);
             this.buttonOk.Margin = new System.Windows.Forms.Padding(10, 3, 50, 3);
             this.buttonOk.Name = "buttonOk";
@@ -134,9 +107,6 @@ namespace CRUD
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
-            // buttonCancel
-            // 
             this.buttonCancel.Location = new System.Drawing.Point(251, 198);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(50, 3, 10, 3);
             this.buttonCancel.Name = "buttonCancel";
@@ -144,32 +114,18 @@ namespace CRUD
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // errorProviderName
-            // 
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             this.errorProviderName.ContainerControl = this;
-            // 
-            // errorProviderCategorieId
-            // 
             this.errorProviderCategorieId.ContainerControl = this;
-            // 
-            // errorProviderPrice
-            // 
             this.errorProviderPrice.ContainerControl = this;
-            // 
-            // errorProviderDescription
-            // 
             this.errorProviderDescription.ContainerControl = this;
-            // 
-            // ProductForm
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 241);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.textBoxDescription);
+            this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.textBoxCategorieId);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelDescription);
@@ -194,8 +150,8 @@ namespace CRUD
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TextBox textBoxCategorieId;
-        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ErrorProvider errorProviderName;

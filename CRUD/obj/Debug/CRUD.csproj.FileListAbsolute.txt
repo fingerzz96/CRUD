@@ -11,3 +11,16 @@ F:\OPN\CRUD\CRUD\obj\Debug\CRUD.csproj.CopyComplete
 F:\OPN\CRUD\CRUD\obj\Debug\CRUD.exe
 F:\OPN\CRUD\CRUD\obj\Debug\CRUD.pdb
 F:\OPN\CRUD\CRUD\obj\Debug\CRUD.ProductForm.resources
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\bin\Debug\CRUD.exe
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\bin\Debug\CRUD.pdb
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\bin\Debug\System.Data.SQLite.dll
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\bin\Debug\System.Data.SQLite.xml
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.csprojAssemblyReference.cache
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.Form1.resources
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.ProductForm.resources
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.csproj.GenerateResource.cache
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.csproj.CoreCompileInputs.cache
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.csproj.CopyComplete
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.exe
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.pdb

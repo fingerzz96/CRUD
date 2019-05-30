@@ -17,13 +17,13 @@ namespace CRUD
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (ValidateChildren(ValidationConstraints.Enabled)
+            if (this.ValidateChildren(ValidationConstraints.Enabled)
                 && ValidateName()
                 && ValidateCategorieId()
                 && ValidatePrice()
                 && ValidateDescription())
             {
-                Name = textBoxName.Text;
+                this.Name = this.textBoxName.Text;
 
                 try
                 {
@@ -46,7 +46,7 @@ namespace CRUD
                     return;
                 }
 
-                Description = textBoxDescription.Text;
+                this.Description = this.textBoxDescription.Text;
 
                 DialogResult = DialogResult.OK;
                 Close();
@@ -55,13 +55,15 @@ namespace CRUD
 
         private bool ValidateDescription()
         {
+            bool OK = false;
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
             {
-                errorProviderName.SetError(textBoxName, "Name cannot be null! ");
+                errorProviderDescription.SetError(textBoxDescription, "Name cannot be null! ");
             }
             else
             {
-                return true;
+                errorProviderDescription.SetError(this.textBoxDescription, String.Empty);
+                OK = true;
             }
 
             return false;
@@ -69,8 +71,9 @@ namespace CRUD
 
         private bool ValidatePrice()
         {
+            bool OK = false;
             uint price = 0;
-            if (Convert.ToInt32(String.IsNullOrWhiteSpace(textBoxName.Text)) == 0)
+            if (String.IsNullOrWhiteSpace(textBoxName.Text))
             {
                 errorProviderPrice.SetError(textBoxPrice, "Price cannot be null!");
             }
@@ -80,7 +83,8 @@ namespace CRUD
             }
             else
             {
-                return true;
+                errorProviderPrice.SetError(this.textBoxPrice, String.Empty);
+                OK = true;
             }
 
 
@@ -90,7 +94,8 @@ namespace CRUD
         private bool ValidateCategorieId()
         {
             uint id = 0;
-            if (Convert.ToInt32(String.IsNullOrWhiteSpace(textBoxCategorieId.Text)) == 0)
+            bool OK = false;
+            if (String.IsNullOrWhiteSpace(textBoxCategorieId.Text))
             {
                 errorProviderCategorieId.SetError(textBoxCategorieId, "Categorie's Id cannot be null!");
             }
@@ -100,7 +105,8 @@ namespace CRUD
             }
             else
             {
-                return true;
+                errorProviderCategorieId.SetError(this.textBoxCategorieId, String.Empty);
+                OK = true;
             }
 
             return false;
@@ -108,13 +114,15 @@ namespace CRUD
 
         private bool ValidateName()
         {
+            bool OK = false;
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
             {
                 errorProviderName.SetError(textBoxName, "Name is cannot be null!");
             }
             else
             {
-                return true;
+                errorProviderName.SetError(this.textBoxName, String.Empty);
+                OK = true;
             }
 
             return false;
@@ -132,12 +140,17 @@ namespace CRUD
 
         private void textBoxPrice_TextChanged(object sender, EventArgs e)
         {
-            ValidatePrice();
+            ValidateDescription();
         }
 
         private void textBoxDescription_TextChanged(object sender, EventArgs e)
         {
-            ValidateDescription();
+            ValidatePrice();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
