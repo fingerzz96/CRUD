@@ -53,7 +53,7 @@ namespace CRUD
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialogDatabase.ShowDialog()==DialogResult.OK)
+            if (openFileDialogDatabase.ShowDialog() == DialogResult.OK)
             {
                 database = new Database(openFileDialogDatabase.FileName);
 
@@ -70,7 +70,7 @@ namespace CRUD
                 {
                     MessageBox.Show("Error during selecting products! " + exception.Message);
                 }
-                
+
                 ConnectList();
             }
         }
@@ -79,20 +79,44 @@ namespace CRUD
         {
             if (database != null)
             {
-                ProductForm productForm = new ProductForm();
+                InsertProductForm insertProductForm = new InsertProductForm();
 
-                if (productForm.ShowDialog(this) == DialogResult.OK)
+                if (insertProductForm.ShowDialog(this) == DialogResult.OK)
                 {
                     try
                     {
-                        database.InsertProduct(productForm.Name, productForm.CategorieId, productForm.Price,
-                            productForm.Description);
+                        database.InsertProduct(insertProductForm.Name, insertProductForm.CategorieId,
+                            insertProductForm.Price,
+                            insertProductForm.Description);
                         _products = database.ReturnAllAdminProducts();
                         ConnectList();
                     }
                     catch (Exception exception)
                     {
-                        MessageBox.Show("During inserting the data came unexpected error! " + exception.Message);
+                        MessageBox.Show(@"During inserting the data came unexpected error! " + exception.Message);
+                    }
+                }
+            }
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            if (database != null)
+            {
+                UpdateProductForm updateProductForm = new UpdateProductForm();
+                
+                if (updateProductForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    try
+                    {
+                        database.UpdateProduct(updateProductForm.Id, updateProductForm.Name,
+                            updateProductForm.CategorieId, updateProductForm.Price, updateProductForm.Description);
+                        _products = database.ReturnAllAdminProducts();
+                        ConnectList();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(@"During inserting the data came unexpected error! " + exception.Message);
                     }
                 }
             }

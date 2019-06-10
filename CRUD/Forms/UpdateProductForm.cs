@@ -1,29 +1,44 @@
 using System;
-using System.ComponentModel;
+using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace CRUD
 {
-    public partial class ProductForm : Form
+    public partial class UpdateProductForm : Form
     {
-        public ProductForm()
+        public UpdateProductForm()
         {
             InitializeComponent();
         }
 
+        public long Id { get; set; }
+
         public new string Name { get; set; }
+
         public int CategorieId { get; set; }
+
         public int Price { get; set; }
+
         public string Description { get; set; }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (ValidateChildren(ValidationConstraints.Enabled)
-                && ValidateName()
+            if (ValidateChildren(ValidationConstraints.Enabled) && ValidateId() && ValidateName()
                 && ValidateCategorieId()
                 && ValidatePrice()
                 && ValidateDescription())
             {
+                try
+                {
+                    Id = Convert.ToInt32(textBoxId.Text);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(@"Error of validation of Categories Id number!" + exception.Message);
+                    return;
+                }
+
                 Name = textBoxName.Text;
 
                 try
@@ -54,40 +69,37 @@ namespace CRUD
             }
         }
 
-        private bool ValidateDescription()
+        private bool ValidateId()
         {
-            bool OK = false;
-            if (String.IsNullOrWhiteSpace(textBoxName.Text))
+            uint id = 0;
+            if (String.IsNullOrWhiteSpace((textBoxId.Text)))
             {
-                errorProviderDescription.SetError(textBoxDescription, "Name cannot be null! ");
+                errorProviderId.SetError(textBoxId, "Id cannot be null!");
+            }
+            else if (uint.TryParse(textBoxId.Text, out id) == false)
+            {
+                errorProviderId.SetError(textBoxId, "Id must be whole number!");
             }
             else
             {
-                errorProviderDescription.SetError(textBoxDescription, String.Empty);
+                errorProviderId.SetError(textBoxId, String.Empty);
                 return true;
             }
 
             return false;
         }
 
-        private bool ValidatePrice()
+        private bool ValidateName()
         {
-            bool OK = false;
-            uint price = 0;
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
             {
-                errorProviderPrice.SetError(textBoxPrice, "Price cannot be null!");
-            }
-            else if (uint.TryParse(textBoxPrice.Text, out price) == false)
-            {
-                errorProviderPrice.SetError(textBoxPrice, "Price must be whole number!");
+                errorProviderName.SetError(textBoxName, "Name is cannot be null!");
             }
             else
             {
-                errorProviderPrice.SetError(textBoxPrice, String.Empty);
+                errorProviderName.SetError(textBoxName, String.Empty);
                 return true;
             }
-
 
             return false;
         }
@@ -112,45 +124,65 @@ namespace CRUD
             return false;
         }
 
-        private bool ValidateName()
+        private bool ValidatePrice()
         {
-            bool OK = false;
+            uint price = 0;
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
             {
-                errorProviderName.SetError(textBoxName, "Name is cannot be null!");
+                errorProviderPrice.SetError(textBoxPrice, "Price cannot be null!");
+            }
+            else if (uint.TryParse(textBoxPrice.Text, out price) == false)
+            {
+                errorProviderPrice.SetError(textBoxPrice, "Price must be whole number!");
             }
             else
             {
-                errorProviderName.SetError(textBoxName, String.Empty);
+                errorProviderPrice.SetError(textBoxPrice, String.Empty);
+                return true;
+            }
+
+
+            return false;
+        }
+
+        private bool ValidateDescription()
+        {
+            if (String.IsNullOrWhiteSpace(textBoxName.Text))
+            {
+                errorProviderDescription.SetError(textBoxDescription, "Name cannot be null! ");
+            }
+            else
+            {
+                errorProviderDescription.SetError(textBoxDescription, String.Empty);
                 return true;
             }
 
             return false;
         }
 
-        private void textBoxName_TextChanged(object sender, CancelEventArgs e)
+        private void textBoxId_TextChanged(object sender, EventArgs e)
+        {
+            ValidateId();
+        }
+
+        private void textBoxName_TextChanged(object sender, EventArgs e)
         {
             ValidateName();
         }
 
-        private void textBoxCategorieId_TextChanged(object sender, CancelEventArgs e)
+        private void textBoxCategorieId_TextChanged(object sender, EventArgs e)
         {
             ValidateCategorieId();
         }
 
-        private void textBoxPrice_TextChanged(object sender, CancelEventArgs e)
-        {
-            ValidateDescription();
-        }
-
-        private void textBoxDescription_TextChanged(object sender, CancelEventArgs e)
+        private void textBoxPrice_TextChanged(object sender, EventArgs e)
         {
             ValidatePrice();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void textBoxDescription_TextChanged(object sender, EventArgs e)
         {
-            Close();
+            ValidateDescription();
         }
     }
 }

@@ -107,13 +107,14 @@ namespace CRUD
                     $"{Product.PriceString}, " +
                     $"{Product.DiscountString}, " +
                     $"{Product.DescriptionString}) " +
-                    $"VALUES ({name}, {categorieId}, {price}, 0, {description})";
+                    $"VALUES (@{Product.NameString}, @{Product.CategoriesIdString}, @{Product.PriceString}, @{Product.DiscountString}, @{Product.DescriptionString})";
 
                 using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
                     command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
                     command.Parameters.AddWithValue($"@{Product.PriceString}", price);
+                    command.Parameters.AddWithValue($"@{Product.DiscountString}", 0);
                     command.Parameters.AddWithValue($"@{Product.DescriptionString}", description);
                     command.ExecuteNonQuery();
                 }
@@ -122,7 +123,7 @@ namespace CRUD
             }
         }
 
-        public void UpdateProduct(long id, string name, int categorieId, int price, int discount, string description)
+        public void UpdateProduct(long id, string name, int categorieId, int price, string description)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -130,21 +131,21 @@ namespace CRUD
 
                 string commandText =
                     $"UPDATE {Product.TableName} SET" +
-                    $"{Product.NameString} = {name}, " +
-                    $"{Product.CategoriesIdString} = {categorieId}, " +
-                    $"{Product.PriceString} = {price}, " +
-                    $"{Product.DiscountString} = {discount}, " +
-                    $"{Product.DescriptionString} = {description}" +
-                    $"WHERE {Product.IdString} = {id}";
+                    $"{Product.NameString} = :{Product.NameString}, " +
+                    $"{Product.CategoriesIdString} = :{Product.CategoriesIdString}, " +
+                    $"{Product.PriceString} = :{Product.PriceString}, " +
+                    $"{Product.DiscountString} = :0, " +
+                    $"{Product.DescriptionString} = :{Product.DescriptionString} " +
+                    $"WHERE {Product.IdString} = @{Product.IdString}";
 
                 using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
                     command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
                     command.Parameters.AddWithValue($"@{Product.PriceString}", price);
-                    command.Parameters.AddWithValue($"@{Product.DiscountString}", discount);
+                    command.Parameters.AddWithValue($"@{Product.DiscountString}", 0);
                     command.Parameters.AddWithValue($"@{Product.DescriptionString}", description);
-                    command.Parameters.AddWithValue($@"{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Product.IdString}", id);
                     command.ExecuteNonQuery();
                 }
             }
@@ -157,7 +158,7 @@ namespace CRUD
                 connection.Open();
 
                 string commandText =
-                    $"DELETE FROM {Product.TableName} WHERE {Product.IdString} = {id}";
+                    $"DELETE FROM {Product.TableName} WHERE {Product.IdString} = {Product.IdString}";
 
                 using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
                 {

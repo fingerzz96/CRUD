@@ -1,8 +1,9 @@
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace CRUD
 {
-    partial class ProductForm
+    partial class InsertProductForm
     {
         /// <summary>
         /// Required designer variable.
@@ -57,48 +58,59 @@ namespace CRUD
             this.labelName.Size = new System.Drawing.Size(100, 23);
             this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelCategorieId.Location = new System.Drawing.Point(13, 69);
             this.labelCategorieId.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelCategorieId.Name = "labelCategorieId";
             this.labelCategorieId.Size = new System.Drawing.Size(100, 23);
             this.labelCategorieId.TabIndex = 1;
             this.labelCategorieId.Text = "CategorieId";
-            this.labelPrice.Location = new System.Drawing.Point(13, 115);
+            this.labelCategorieId.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelPrice.Location = new System.Drawing.Point(13, 112);
             this.labelPrice.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(100, 23);
             this.labelPrice.TabIndex = 2;
             this.labelPrice.Text = "Price";
-            this.labelDescription.Location = new System.Drawing.Point(13, 155);
+            this.labelPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelDescription.Location = new System.Drawing.Point(13, 152);
             this.labelDescription.Margin = new System.Windows.Forms.Padding(4, 20, 4, 0);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(100, 23);
             this.labelDescription.TabIndex = 3;
             this.labelDescription.Text = "Description";
+            this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.textBoxName.Location = new System.Drawing.Point(120, 27);
             this.textBoxName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(230, 23);
             this.textBoxName.TabIndex = 4;
-            this.textBoxName.Validating += new CancelEventHandler(this.textBoxName_TextChanged);
+            this.textBoxName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxName_TextChanged);
             this.textBoxCategorieId.Location = new System.Drawing.Point(120, 69);
             this.textBoxCategorieId.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxCategorieId.Name = "textBoxCategorieId";
             this.textBoxCategorieId.Size = new System.Drawing.Size(230, 23);
             this.textBoxCategorieId.TabIndex = 5;
-            this.textBoxCategorieId.Validating += new CancelEventHandler(this.textBoxCategorieId_TextChanged);
-            this.textBoxPrice.Location = new System.Drawing.Point(120, 115);
+            this.textBoxCategorieId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxCategorieId.Validating +=
+                new System.ComponentModel.CancelEventHandler(this.textBoxCategorieId_TextChanged);
+            this.textBoxPrice.Location = new System.Drawing.Point(120, 108);
             this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(229, 23);
             this.textBoxPrice.TabIndex = 6;
-            this.textBoxPrice.Validating += new CancelEventHandler(this.textBoxDescription_TextChanged);
+            this.textBoxPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxPrice.Validating +=
+                new System.ComponentModel.CancelEventHandler(this.textBoxDescription_TextChanged);
             this.textBoxDescription.Location = new System.Drawing.Point(120, 152);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(230, 23);
             this.textBoxDescription.TabIndex = 7;
-            this.textBoxDescription.Validating += new CancelEventHandler(this.textBoxPrice_TextChanged);
+            this.textBoxDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxDescription.Validating +=
+                new System.ComponentModel.CancelEventHandler(this.textBoxPrice_TextChanged);
             this.buttonOk.Location = new System.Drawing.Point(19, 198);
             this.buttonOk.Margin = new System.Windows.Forms.Padding(10, 3, 50, 3);
             this.buttonOk.Name = "buttonOk";
@@ -107,7 +119,7 @@ namespace CRUD
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            this.buttonCancel.Location = new System.Drawing.Point(251, 198);
+            this.buttonCancel.Location = new System.Drawing.Point(284, 198);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(50, 3, 10, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(92, 31);
@@ -121,7 +133,7 @@ namespace CRUD
             this.errorProviderDescription.ContainerControl = this;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 241);
+            this.ClientSize = new System.Drawing.Size(394, 252);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.textBoxDescription);
@@ -132,9 +144,13 @@ namespace CRUD
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelCategorieId);
             this.Controls.Add(this.labelName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "ProductForm";
-            this.Text = "EditorProduct";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "InsertProductForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "CreateProduct";
             ((System.ComponentModel.ISupportInitialize) (this.errorProviderName)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.errorProviderCategorieId)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.errorProviderPrice)).EndInit();
