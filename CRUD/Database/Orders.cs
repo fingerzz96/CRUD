@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.Common;
 
 namespace CRUD
@@ -15,6 +16,12 @@ namespace CRUD
         public int Price { get; set; }
         public long StateId { get; set; }
 
+        public List<Items> Itemses { get; set; }
+
+        public Orders()
+        {
+            
+        }
         public Orders(long id, long customerId, int price, long stateId)
         {
             Id = id;

@@ -9,23 +9,20 @@ namespace CRUD
         public const string NameString = "name";
         public const string CategoriesIdString = "categoriesID";
         public const string PriceString = "price";
-        public const string DiscountString = "discount";
         public const string DescriptionString = "description";
 
         public long Id { get; set; }
         public string Name { get; set; }
         public int CategoriesId { get; set; }
-        public int Price { get; set; }
-        public int Discount { get; set; }
+        public double Price { get; set; }
         public string Description { get; set; }
 
-        public Product(long id, string name, int categoriesID, int price, int discount, string description)
+        public Product(long id, string name, int categoriesID, double price, string description)
         {
             Id = id;
             Name = name;
             CategoriesId = categoriesID;
             Price = price;
-            Discount = discount;
             Description = description;
         }
 

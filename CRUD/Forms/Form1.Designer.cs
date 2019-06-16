@@ -49,9 +49,6 @@ namespace CRUD
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.databaseToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -59,41 +56,23 @@ namespace CRUD
             this.menuStrip1.Size = new System.Drawing.Size(933, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // databaseToolStripMenuItem
-            // 
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
                 {this.connectToolStripMenuItem, this.createToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
-            // 
-            // connectToolStripMenuItem
-            // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
-            // 
-            // createToolStripMenuItem
-            // 
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
             this.createToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.createToolStripMenuItem.Text = "Create";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
-            // 
-            // openFileDialogDatabase
-            // 
             this.openFileDialogDatabase.FileName = "openFileDialog1";
             this.openFileDialogDatabase.Filter = "Soubory SQLite|*.sqlite";
-            // 
-            // saveFileDialogDatabase
-            // 
             this.saveFileDialogDatabase.FileName = "saveFileDialog1";
             this.saveFileDialogDatabase.Filter = "Soubory SQLite|*.sqlite";
-            // 
-            // tabControl1
-            // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -104,9 +83,6 @@ namespace CRUD
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(933, 495);
             this.tabControl1.TabIndex = 2;
-            // 
-            // tabPage1
-            // 
             this.tabPage1.Controls.Add(this.buttonDelete);
             this.tabPage1.Controls.Add(this.buttonUpdate);
             this.tabPage1.Controls.Add(this.buttonCreate);
@@ -119,9 +95,6 @@ namespace CRUD
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Admin";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // buttonDelete
-            // 
             this.buttonDelete.Location = new System.Drawing.Point(8, 84);
             this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonDelete.Name = "buttonDelete";
@@ -129,9 +102,6 @@ namespace CRUD
             this.buttonDelete.TabIndex = 3;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            // 
-            // buttonUpdate
-            // 
             this.buttonUpdate.Location = new System.Drawing.Point(8, 45);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonUpdate.Name = "buttonUpdate";
@@ -140,9 +110,6 @@ namespace CRUD
             this.buttonUpdate.Text = "Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
-            // 
-            // buttonCreate
-            // 
             this.buttonCreate.Location = new System.Drawing.Point(8, 6);
             this.buttonCreate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonCreate.Name = "buttonCreate";
@@ -151,9 +118,6 @@ namespace CRUD
             this.buttonCreate.Text = "Create";
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
-            // 
-            // listBoxProducts
-            // 
             this.listBoxProducts.FormattingEnabled = true;
             this.listBoxProducts.ItemHeight = 15;
             this.listBoxProducts.Location = new System.Drawing.Point(125, 3);
@@ -161,9 +125,6 @@ namespace CRUD
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.Size = new System.Drawing.Size(794, 454);
             this.listBoxProducts.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
             this.tabPage2.Controls.Add(this.listBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -173,9 +134,6 @@ namespace CRUD
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Customer";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // listBox2
-            // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 15;
             this.listBox2.Location = new System.Drawing.Point(142, 9);
@@ -183,22 +141,20 @@ namespace CRUD
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(780, 454);
             this.listBox2.TabIndex = 0;
-            // 
-            // Form1
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OPN - CRUD";
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);

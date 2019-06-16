@@ -1,22 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using CRUD.Logger;
 
 namespace CRUD
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        private ILogger _logger;
+        public Form1(ILogger logger)
         {
             InitializeComponent();
+            FormClosing += Form1_Closing;
+            _logger = logger;
+        }
+
+        private void Form1_Closing(object sender, FormClosingEventArgs e)
+        {
+            var form = new FormLog();
+            form.Close();
+            Application.Exit();
         }
 
         Database database;
 
         private List<Product> _products;
         public BindingSource bindingSource = new BindingSource();
-
 
         private void ConnectList()
         {
@@ -120,6 +131,11 @@ namespace CRUD
                     }
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

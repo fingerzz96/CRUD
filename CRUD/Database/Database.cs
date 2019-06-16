@@ -56,7 +56,6 @@ namespace CRUD
                                   $"{Product.NameString} VARCHAR(20) NOT NULL, " +
                                   $"{Product.CategoriesIdString}  INTEGER REFERENCES Categories(categoriesID), " +
                                   $"{Product.PriceString} REAL, " +
-                                  $"{Product.DiscountString} REAL, " +
                                   $"{Product.DescriptionString} VARCHAR(500) NOT NULL)";
 
                     ExecuteQuery(commandText, connection);
@@ -105,16 +104,14 @@ namespace CRUD
                     $"({Product.NameString}, " +
                     $"{Product.CategoriesIdString}, " +
                     $"{Product.PriceString}, " +
-                    $"{Product.DiscountString}, " +
                     $"{Product.DescriptionString}) " +
-                    $"VALUES (@{Product.NameString}, @{Product.CategoriesIdString}, @{Product.PriceString}, @{Product.DiscountString}, @{Product.DescriptionString})";
+                    $"VALUES (@{Product.NameString}, @{Product.CategoriesIdString}, @{Product.PriceString}, @{Product.DescriptionString})";
 
                 using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
                     command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
                     command.Parameters.AddWithValue($"@{Product.PriceString}", price);
-                    command.Parameters.AddWithValue($"@{Product.DiscountString}", 0);
                     command.Parameters.AddWithValue($"@{Product.DescriptionString}", description);
                     command.ExecuteNonQuery();
                 }
@@ -130,12 +127,11 @@ namespace CRUD
                 connection.Open();
 
                 string commandText =
-                    $"UPDATE {Product.TableName} SET" +
-                    $"{Product.NameString} = :{Product.NameString}, " +
-                    $"{Product.CategoriesIdString} = :{Product.CategoriesIdString}, " +
-                    $"{Product.PriceString} = :{Product.PriceString}, " +
-                    $"{Product.DiscountString} = :0, " +
-                    $"{Product.DescriptionString} = :{Product.DescriptionString} " +
+                    $"UPDATE {Product.TableName} SET " +
+                    $"{Product.NameString} = @{Product.NameString}, " +
+                    $"{Product.CategoriesIdString} = @{Product.CategoriesIdString}, " +
+                    $"{Product.PriceString} = @{Product.PriceString}, " +
+                    $"{Product.DescriptionString} = @{Product.DescriptionString} " +
                     $"WHERE {Product.IdString} = @{Product.IdString}";
 
                 using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
@@ -143,7 +139,6 @@ namespace CRUD
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
                     command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
                     command.Parameters.AddWithValue($"@{Product.PriceString}", price);
-                    command.Parameters.AddWithValue($"@{Product.DiscountString}", 0);
                     command.Parameters.AddWithValue($"@{Product.DescriptionString}", description);
                     command.Parameters.AddWithValue($"@{Product.IdString}", id);
                     command.ExecuteNonQuery();
@@ -151,18 +146,22 @@ namespace CRUD
             }
         }
 
-        public void DeleteProduct(long id)
+        public void DeleteProduct(long id, string name, int categorieId, int price, string description)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
                 string commandText =
-                    $"DELETE FROM {Product.TableName} WHERE {Product.IdString} = {Product.IdString}";
+                    $"DELETE FROM {Product.TableName} WHERE {Product.IdString} = @{Product.IdString}";
 
                 using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
                 {
-                    command.Parameters.AddWithValue($@"{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Product.NameString}", name);
+                    command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
+                    command.Parameters.AddWithValue($"@{Product.PriceString}", price);
+                    command.Parameters.AddWithValue($"@{Product.DescriptionString}", description);
                     command.ExecuteNonQuery();
                 }
             }
@@ -186,11 +185,10 @@ namespace CRUD
                             long id = Convert.ToInt32(reader[Product.IdString]);
                             string name = Convert.ToString((string) reader[Product.NameString]);
                             int categorieId = Convert.ToInt32(reader[Product.CategoriesIdString]);
-                            int price = Convert.ToInt32(reader[Product.PriceString]);
-                            int discount = Convert.ToInt32(reader[Product.DiscountString]);
+                            double price = Convert.ToDouble(reader[Product.PriceString]);
                             string description = Convert.ToString(reader[Product.DescriptionString]);
 
-                            Product product = new Product(id, name, categorieId, price, discount, description);
+                            Product product = new Product(id, name, categorieId, price, description);
                             products.Add(product);
                         }
                     }
@@ -200,6 +198,42 @@ namespace CRUD
             }
 
             return products;
+        }
+
+
+        public List<Orders> ReturnAllUserOrder(int userId)
+        {
+            List<Orders> orders = new List<Orders>();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string commandText = $"SELECT * FROM {Orders.TableName}";
+                using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            long id = (long) reader[Orders.IdString];
+                            long stateId = (long) reader[Orders.StateIdString];
+                            long customerId = (long) reader[Orders.CustomerIdString];
+                            long price = (long) reader[Orders.PriceString];
+
+                            Orders order = new Orders((int) id, (int) stateId, (int) customerId, (int) price);
+                            if (order.CustomerId == customerId)
+                            {
+                                orders.Add(order);
+                            }
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return orders;
         }
 
         //End of class
