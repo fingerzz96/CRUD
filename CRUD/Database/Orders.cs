@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Data.Common;
 
 namespace CRUD
 {
@@ -11,24 +10,22 @@ namespace CRUD
         public const string PriceString = "price";
         public const string StateIdString = "stateID";
 
-        public long Id { get; set; }
-        public long CustomerId { get; set; }
-        public int Price { get; set; }
-        public long StateId { get; set; }
+        public Orders() { }
 
-        public List<Items> Itemses { get; set; }
-
-        public Orders()
-        {
-            
-        }
-        public Orders(long id, long customerId, int price, long stateId)
+        public Orders(long id, long customerId, long price, long stateId)
         {
             Id = id;
             CustomerId = customerId;
             Price = price;
             StateId = stateId;
         }
+
+        public long Id { get; set; }
+        public long CustomerId { get; set; }
+        public long Price { get; set; }
+        public long StateId { get; set; }
+
+        public List<Items> Itemses { get; set; }
 
         public override string ToString()
         {

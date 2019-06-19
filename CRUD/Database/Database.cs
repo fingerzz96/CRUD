@@ -2,23 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using CRUD.Logger;
 
 namespace CRUD
 {
     public class Database
     {
-        private string databaseFileName;
-        private string connectionString;
+        private readonly ILogger _logger;
+        private readonly string connectionString;
+        private readonly string databaseFileName;
 
-        public Database(string databaseFileName)
+        public Database(string databaseFileName, ILogger logger)
         {
             this.databaseFileName = databaseFileName;
             connectionString = $"Data Source={databaseFileName};Version=3;";
+            _logger = logger;
         }
 
         private void ExecuteQuery(string sql, SQLiteConnection connection)
         {
-            using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+            using (var command = new SQLiteCommand(sql, connection))
             {
                 command.ExecuteNonQuery();
             }
@@ -26,10 +29,7 @@ namespace CRUD
 
         public bool IsDatabaseCreated()
         {
-            if (File.Exists(databaseFileName))
-            {
-                return true;
-            }
+            if (File.Exists(databaseFileName)) return true;
 
             return false;
         }
@@ -40,7 +40,7 @@ namespace CRUD
             {
                 SQLiteConnection.CreateFile(databaseFileName);
 
-                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                using (var connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
                     string commandText;
@@ -95,11 +95,11 @@ namespace CRUD
 
         public void InsertProduct(string name, int categorieId, int price, string description)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                string commandText =
+                var commandText =
                     $"INSERT INTO {Product.TableName}" +
                     $"({Product.NameString}, " +
                     $"{Product.CategoriesIdString}, " +
@@ -107,7 +107,7 @@ namespace CRUD
                     $"{Product.DescriptionString}) " +
                     $"VALUES (@{Product.NameString}, @{Product.CategoriesIdString}, @{Product.PriceString}, @{Product.DescriptionString})";
 
-                using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
+                using (var command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
                     command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
@@ -122,11 +122,11 @@ namespace CRUD
 
         public void UpdateProduct(long id, string name, int categorieId, int price, string description)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                string commandText =
+                var commandText =
                     $"UPDATE {Product.TableName} SET " +
                     $"{Product.NameString} = @{Product.NameString}, " +
                     $"{Product.CategoriesIdString} = @{Product.CategoriesIdString}, " +
@@ -134,7 +134,7 @@ namespace CRUD
                     $"{Product.DescriptionString} = @{Product.DescriptionString} " +
                     $"WHERE {Product.IdString} = @{Product.IdString}";
 
-                using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
+                using (var command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
                     command.Parameters.AddWithValue($"@{Product.CategoriesIdString}", categorieId);
@@ -148,14 +148,14 @@ namespace CRUD
 
         public void DeleteProduct(long id, string name, int categorieId, int price, string description)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                string commandText =
+                var commandText =
                     $"DELETE FROM {Product.TableName} WHERE {Product.IdString} = @{Product.IdString}";
 
-                using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
+                using (var command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"@{Product.IdString}", id);
                     command.Parameters.AddWithValue($"@{Product.NameString}", name);
@@ -167,28 +167,28 @@ namespace CRUD
             }
         }
 
-        public List<Product> ReturnAllAdminProducts()
+        public List<Product> ReturnAllProducts()
         {
-            List<Product> products = new List<Product>();
+            var products = new List<Product>();
 
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                string commandText = $"SELECT * FROM {Product.TableName}";
-                using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
+                var commandText = $"SELECT * FROM {Product.TableName}";
+                using (var command = new SQLiteCommand(commandText, connection))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             long id = Convert.ToInt32(reader[Product.IdString]);
-                            string name = Convert.ToString((string) reader[Product.NameString]);
-                            int categorieId = Convert.ToInt32(reader[Product.CategoriesIdString]);
-                            double price = Convert.ToDouble(reader[Product.PriceString]);
-                            string description = Convert.ToString(reader[Product.DescriptionString]);
+                            var name = Convert.ToString((string) reader[Product.NameString]);
+                            var categorieId = Convert.ToInt32(reader[Product.CategoriesIdString]);
+                            var price = Convert.ToDouble(reader[Product.PriceString]);
+                            var description = Convert.ToString(reader[Product.DescriptionString]);
 
-                            Product product = new Product(id, name, categorieId, price, description);
+                            var product = new Product(id, name, categorieId, price, description);
                             products.Add(product);
                         }
                     }
@@ -201,31 +201,28 @@ namespace CRUD
         }
 
 
-        public List<Orders> ReturnAllUserOrder(int userId)
+        public List<Orders> ReturnAllUserOrders(long userId)
         {
-            List<Orders> orders = new List<Orders>();
+            var orderses = new List<Orders>();
 
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                string commandText = $"SELECT * FROM {Orders.TableName}";
-                using (SQLiteCommand command = new SQLiteCommand(commandText, connection))
+                var commandText = $"SELECT * FROM {Orders.TableName}";
+                using (var command = new SQLiteCommand(commandText, connection))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            long id = (long) reader[Orders.IdString];
-                            long stateId = (long) reader[Orders.StateIdString];
-                            long customerId = (long) reader[Orders.CustomerIdString];
-                            long price = (long) reader[Orders.PriceString];
+                            long id = Convert.ToInt32(reader[Orders.IdString]);
+                            long stateId = Convert.ToInt32(reader[Orders.StateIdString]);
+                            long customerId = Convert.ToInt32(reader[Orders.CustomerIdString]);
+                            long price = Convert.ToInt32(reader[Orders.PriceString]);
 
-                            Orders order = new Orders((int) id, (int) stateId, (int) customerId, (int) price);
-                            if (order.CustomerId == customerId)
-                            {
-                                orders.Add(order);
-                            }
+                            var order = new Orders(id, customerId, price, stateId);
+                            if (order.CustomerId == customerId) orderses.Add(order);
                         }
                     }
                 }
@@ -233,7 +230,108 @@ namespace CRUD
                 connection.Close();
             }
 
-            return orders;
+            return orderses;
+        }
+
+
+        public List<Orders> ReturnaAllOrders()
+        {
+            var orderses = new List<Orders>();
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                var commandText =
+                    $"SELECT * FROM {Orders.TableName}";
+
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            long id = Convert.ToInt32(reader[Orders.IdString]);
+                            long stateId = Convert.ToInt32(reader[Orders.StateIdString]);
+                            long customerId = Convert.ToInt32(reader[Orders.CustomerIdString]);
+                            long price = Convert.ToInt32(reader[Orders.PriceString]);
+
+                            var order = new Orders(id, customerId, price, stateId);
+                            orderses.Add(order);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return orderses;
+        }
+
+        public List<Items> ReturnAllItemsesOrder()
+        {
+            var orderItems = new List<Items>();
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                var commandText = $"SELECT * FROM {Items.TableName}";
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            long id = Convert.ToInt32(reader[Items.IdString]);
+                            long ordersId = Convert.ToInt32(reader[Items.OrderIdString]);
+                            long productId = Convert.ToInt32(reader[Items.ProductIdString]);
+                            long count = Convert.ToInt32(reader[Items.CountString]);
+                            long price = Convert.ToInt32(reader[Items.PriceString]);
+
+                            var items = new Items(id, ordersId, productId, count, price);
+                            orderItems.Add(items);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return orderItems;
+        }
+
+
+        public List<Customer> ReturnAllCustomers()
+        {
+            var customers = new List<Customer>();
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                var commandText =
+                    $"SELECT * FROM {Customer.TableName}";
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            long id = Convert.ToInt32(reader[Customer.IdString]);
+                            var name = Convert.ToString(reader[Customer.NameString]);
+                            var address = Convert.ToString(reader[Customer.AddressString]);
+
+                            var customer = new Customer(id, name, address);
+                            customers.Add(customer);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return customers;
         }
 
         //End of class

@@ -1,13 +1,9 @@
-using System;
-using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
 
 namespace CRUD.Logger
 {
     public class ConsoleLogger : ILogger
     {
-        public void Log(string log)
-        {
-            System.Diagnostics.Debug.WriteLine(log); 
-        }
+        public void Log(string log) { Debug.WriteLine(log); }
     }
 }

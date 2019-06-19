@@ -7,10 +7,9 @@ namespace CRUD.Logger
     {
         public void Log(string log)
         {
-            string path = "logger.txt";
+            var path = "log.txt";
 
-            if (String.IsNullOrWhiteSpace(path) == false)
-            {
+            if (string.IsNullOrWhiteSpace(path) == false)
                 try
                 {
                     File.AppendAllText(path, log + Environment.NewLine);
@@ -19,7 +18,6 @@ namespace CRUD.Logger
                 {
                     Console.WriteLine(e.Message);
                 }
-            }
         }
     }
 }

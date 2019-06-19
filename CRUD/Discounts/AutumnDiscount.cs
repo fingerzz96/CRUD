@@ -7,17 +7,17 @@ namespace CRUD
     {
         public override double ReturnPrice(object items, object items2, object items3)
         {
-            List<Items> orderItems = (List<Items>) items;
-            List<Product> products = (List<Product>) items2;
-            List<Orders> orders = (List<Orders>) items3;
-            int count = orders.Count;
-            double cartTotalPrice = 0.0;
-            double totalPrice = 0.0;
+            var orderItems = (List<Items>) items;
+            var products = (List<Product>) items2;
+            var orders = (List<Orders>) items3;
+            var count = orders.Count;
+            var cartTotalPrice = 0.0;
+            var totalPrice = 0.0;
 
             foreach (var item in orderItems)
             {
                 var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                totalPrice = totalPrice + ((product.Price * ItemDiscount(product)) * item.Count);
+                totalPrice = totalPrice + product.Price * ItemDiscount(product) * item.Count;
                 cartTotalPrice = cartTotalPrice + totalPrice;
             }
 
@@ -27,11 +27,11 @@ namespace CRUD
         private double ItemDiscount(Product product)
         {
             double discount0 = 1;
-            double discount5 = 0.95;
-            double discount10 = 0.9;
-            double discount15 = 0.85;
-            double discount20 = 0.8;
-            double discount25 = 0.75;
+            var discount5 = 0.95;
+            var discount10 = 0.9;
+            var discount15 = 0.85;
+            var discount20 = 0.8;
+            var discount25 = 0.75;
 
             switch (product.Name)
             {
@@ -41,9 +41,9 @@ namespace CRUD
                     return discount10;
                 case "Deodorant":
                     return discount15;
-                case "":
+                case "Mydlo":
                     return discount20;
-                case "":
+                case "Chemie":
                     return discount25;
                 default:
                     return discount0;
