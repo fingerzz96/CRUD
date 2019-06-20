@@ -73,7 +73,7 @@ namespace CRUD
                 var customer = (Customer) listBoxCustomers.SelectedItem;
                 if (customer == null)
                 {
-                    MessageBox.Show("No customers are existing");
+                    MessageBox.Show(@"No customers are existing");
                 } else
                 {
                     _orderses = database.ReturnAllUserOrders(customer.Id);
@@ -114,6 +114,19 @@ namespace CRUD
             }
         }
 
+        private Discount ReturnDiscount(DateTime dateTime)
+        {
+            if (dateTime.Day >= 21 && dateTime.Month >= 3 && dateTime.Month < 6) return new SpringDiscount();
+
+            if (dateTime.Day >= 21 && dateTime.Month >= 6 && dateTime.Month < 9) return new SummerDiscount();
+
+            if (dateTime.Day >= 23 && dateTime.Month >= 9 && dateTime.Month < 12) return new AutumnDiscount();
+
+            if (dateTime.Day >= 21 && dateTime.Month >= 12 && dateTime.Month < 3) return new WinterDiscount();
+
+            return new EmptyDiscount();
+        }
+
         private void createToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialogDatabase.ShowDialog() == DialogResult.OK)
@@ -141,6 +154,10 @@ namespace CRUD
                 try
                 {
                     _products = database.ReturnAllProducts();
+                    _customers = database.ReturnAllCustomers();
+                    _orderses = database.ReturnaAllOrders();
+                    _adminOrderses = database.ReturnaAllOrders();
+                    _itemses = database.ReturnAllItemsesOrder();
                 }
                 catch (Exception exception)
                 {
@@ -148,6 +165,9 @@ namespace CRUD
                 }
 
                 ConnectProducts();
+                ConnectCustomers();
+                ConnectOrders();
+                ConnectAdminOrders();
             }
         }
 
@@ -204,6 +224,7 @@ namespace CRUD
                     try
                     {
                         database.CreateNewCustomer(newCustomerForm.NameSurname, newCustomerForm.Address);
+
                         _customers = database.ReturnAllCustomers();
                         ConnectCustomers();
                     }
@@ -231,6 +252,54 @@ namespace CRUD
             if (orders != null) ConnectItemOrders(orders.Id);
         }
 
-        private void buttonNewOrder_Click(object sender, EventArgs e) { }
+        private void buttonNewOrder_Click(object sender, EventArgs e)
+        {
+            if (database != null)
+            {
+                var customer = (Customer) listBoxCustomers.SelectedItem;
+                if (customer == null)
+                {
+                    MessageBox.Show(@"For creating new order must be created user");
+                } else
+                {
+                    var product = database.ReturnAllProducts();
+                    var createNewOrder = new FormCreateNewOrder(product);
+
+                    if (createNewOrder.ShowDialog(this) == DialogResult.OK && customer != null)
+                        try
+                        {
+                            database.CreateOrder(customer.Id);
+                            _orderses = database.ReturnaAllOrders();
+                            _adminOrderses = database.ReturnaAllOrders();
+                            var orderId = database.ReturnaAllOrders().LastOrDefault().Id;
+
+                            if (createNewOrder.Itemses != null)
+                                foreach (var itemse in createNewOrder.Itemses)
+                                    database.CreateOrderItem(itemse, orderId);
+
+                            _itemses = database.ReturnAllItemsesOrder();
+                            var currentOrderItems = _itemses.Where(x => x.OrdersId == orderId).ToList();
+                            var products = database.ReturnAllProducts();
+                            var orders = database.ReturnAllUserOrders(customer.Id);
+                            var date = DateTime.Now;
+                            var discount = ReturnDiscount(date);
+
+                            var price = discount.ReturnPrice(currentOrderItems, products, orders);
+                            database.UpdateOrderTotalPrice(orderId, price);
+
+                            _customers = database.ReturnAllCustomers();
+                            ConnectCustomers();
+                            ConnectOrders();
+                            ConnectProducts();
+                            ConnectItemOrders(orderId);
+                            ConnectAdminOrders();
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show(@"During inserting the data came unexpected error! " + exception.Message);
+                        }
+                }
+            }
+        }
     }
 }

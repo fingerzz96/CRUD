@@ -47,12 +47,12 @@ namespace CRUD
             this.buttonCreate = new System.Windows.Forms.Button();
             this.listBoxProducts = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonNewOrder = new System.Windows.Forms.Button();
             this.listBoxCustomerItemsOrders = new System.Windows.Forms.ListBox();
             this.listBoxCustomerOrders = new System.Windows.Forms.ListBox();
             this.buttonCreateCustomer = new System.Windows.Forms.Button();
             this.labelCustomer = new System.Windows.Forms.Label();
             this.listBoxCustomers = new System.Windows.Forms.ListBox();
-            this.buttonNewOrder = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -180,6 +180,14 @@ namespace CRUD
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Customer";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.buttonNewOrder.Location = new System.Drawing.Point(300, 412);
+            this.buttonNewOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonNewOrder.Name = "buttonNewOrder";
+            this.buttonNewOrder.Size = new System.Drawing.Size(244, 47);
+            this.buttonNewOrder.TabIndex = 5;
+            this.buttonNewOrder.Text = "Create new order";
+            this.buttonNewOrder.UseVisualStyleBackColor = true;
+            this.buttonNewOrder.Click += new System.EventHandler(this.buttonNewOrder_Click);
             this.listBoxCustomerItemsOrders.FormattingEnabled = true;
             this.listBoxCustomerItemsOrders.ItemHeight = 15;
             this.listBoxCustomerItemsOrders.Location = new System.Drawing.Point(584, 42);
@@ -220,14 +228,6 @@ namespace CRUD
             this.listBoxCustomers.TabIndex = 0;
             this.listBoxCustomers.SelectedIndexChanged +=
                 new System.EventHandler(this.listBoxCustomers_SelectedIndexChanged);
-            this.buttonNewOrder.Location = new System.Drawing.Point(300, 412);
-            this.buttonNewOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonNewOrder.Name = "buttonNewOrder";
-            this.buttonNewOrder.Size = new System.Drawing.Size(244, 47);
-            this.buttonNewOrder.TabIndex = 5;
-            this.buttonNewOrder.Text = "Create new order";
-            this.buttonNewOrder.UseVisualStyleBackColor = true;
-            this.buttonNewOrder.Click += new System.EventHandler(this.buttonNewOrder_Click);
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);

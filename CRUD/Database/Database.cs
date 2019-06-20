@@ -182,6 +182,74 @@ namespace CRUD
             }
         }
 
+        public void CreateOrder(long userId)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var commandText =
+                    $"INSERT INTO {Orders.TableName} " +
+                    $"({Orders.IdString}, " +
+                    $"{Orders.CustomerIdString}, " +
+                    $"{Orders.PriceString}, " +
+                    $"{Orders.StateIdString}) " +
+                    $"VALUES (@{Orders.IdString}, @{Orders.CustomerIdString}, @{Orders.PriceString}, @{Orders.StateIdString})";
+
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    command.Parameters.AddWithValue($"{Orders.CustomerIdString}", userId);
+                    command.Parameters.AddWithValue($"{Orders.PriceString}", "");
+                    command.Parameters.AddWithValue($"{Orders.StateIdString}", "1");
+                }
+            }
+        }
+
+        public void UpdateOrderTotalPrice(long id, double price)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var commandText =
+                    $"UPDATE {Orders.TableName} " +
+                    $"SET {Orders.PriceString} = @{Orders.PriceString} " +
+                    $"WHERE {Orders.IdString} = @{Orders.IdString}";
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    command.Parameters.AddWithValue($"@{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Orders.PriceString}", price);
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
+
+        public void CreateOrderItem(Items items, long orderId)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var commandText =
+                    $"INSERT INTO {Items.TableName} " +
+                    $"({Items.OrderIdString}, " +
+                    $"{Items.ProductIdString}, " +
+                    $"{Items.CountString}) " +
+                    $"VALUES(@{Items.OrderIdString}, @{Items.ProductIdString}, @{Items.CountString})";
+
+                using (var orderItemCommand = new SQLiteCommand(commandText, connection))
+                {
+                    orderItemCommand.Parameters.AddWithValue($"@{Items.OrderIdString}", orderId);
+                    orderItemCommand.Parameters.AddWithValue($"@{Items.ProductIdString}", items.ProductId);
+                    orderItemCommand.Parameters.AddWithValue($"@{Items.CountString}", items.Count);
+                    orderItemCommand.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
+
         public List<Product> ReturnAllProducts()
         {
             var products = new List<Product>();
@@ -237,7 +305,7 @@ namespace CRUD
                             long price = Convert.ToInt32(reader[Orders.PriceString]);
 
                             var order = new Orders(id, customerId, price, stateId);
-                            if (order.CustomerId == customerId) orderses.Add(order);
+                            if (order.CustomerId == userId) orderses.Add(order);
                         }
                     }
                 }
