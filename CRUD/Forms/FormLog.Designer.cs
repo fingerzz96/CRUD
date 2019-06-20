@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace CRUD
 {
@@ -67,6 +68,12 @@ namespace CRUD
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FormLog";
             this.Text = "FormLog";
+            // fixace okna
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MinimizeBox = false;
+            this.MaximizeBox= false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            
             this.ResumeLayout(false);
         }
 

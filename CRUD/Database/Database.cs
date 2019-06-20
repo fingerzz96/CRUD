@@ -8,14 +8,14 @@ namespace CRUD
 {
     public class Database
     {
+        private readonly string _connectionString;
+        private readonly string _databaseFileName;
         private readonly ILogger _logger;
-        private readonly string connectionString;
-        private readonly string databaseFileName;
 
         public Database(string databaseFileName, ILogger logger)
         {
-            this.databaseFileName = databaseFileName;
-            connectionString = $"Data Source={databaseFileName};Version=3;";
+            _databaseFileName = databaseFileName;
+            _connectionString = $"Data Source={databaseFileName};Version=3;";
             _logger = logger;
         }
 
@@ -27,20 +27,15 @@ namespace CRUD
             }
         }
 
-        public bool IsDatabaseCreated()
-        {
-            if (File.Exists(databaseFileName)) return true;
-
-            return false;
-        }
+        public bool IsDatabaseCreated() { return File.Exists(_databaseFileName); }
 
         public void CreateDatabase()
         {
-            if (!File.Exists(databaseFileName))
+            if (!File.Exists(_databaseFileName))
             {
-                SQLiteConnection.CreateFile(databaseFileName);
+                SQLiteConnection.CreateFile(_databaseFileName);
 
-                using (var connection = new SQLiteConnection(connectionString))
+                using (var connection = new SQLiteConnection(_connectionString))
                 {
                     connection.Open();
                     string commandText;
@@ -95,7 +90,7 @@ namespace CRUD
 
         public void InsertProduct(string name, int categorieId, int price, string description)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -122,7 +117,7 @@ namespace CRUD
 
         public void UpdateProduct(long id, string name, int categorieId, int price, string description)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -148,7 +143,7 @@ namespace CRUD
 
         public void DeleteProduct(long id, string name, int categorieId, int price, string description)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -167,11 +162,31 @@ namespace CRUD
             }
         }
 
+        public void CreateNewCustomer(string nameSurname, string address)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var commandText =
+                    $"INSERT INTO {Customer.TableName}" +
+                    $"({Customer.NameString}, " +
+                    $"{Customer.AddressString}) " +
+                    $"VALUES (@{Customer.NameString}, @{Customer.AddressString})";
+
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    command.Parameters.AddWithValue($"@{Customer.NameString}", nameSurname);
+                    command.Parameters.AddWithValue($"@{Customer.AddressString}", address);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public List<Product> ReturnAllProducts()
         {
             var products = new List<Product>();
 
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -205,7 +220,7 @@ namespace CRUD
         {
             var orderses = new List<Orders>();
 
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -238,7 +253,7 @@ namespace CRUD
         {
             var orderses = new List<Orders>();
 
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -272,7 +287,7 @@ namespace CRUD
         {
             var orderItems = new List<Items>();
 
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 
@@ -306,7 +321,7 @@ namespace CRUD
         {
             var customers = new List<Customer>();
 
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
 

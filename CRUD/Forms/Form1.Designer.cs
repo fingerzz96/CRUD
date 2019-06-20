@@ -49,9 +49,10 @@ namespace CRUD
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listBoxCustomerItemsOrders = new System.Windows.Forms.ListBox();
             this.listBoxCustomerOrders = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonCreateCustomer = new System.Windows.Forms.Button();
             this.labelCustomer = new System.Windows.Forms.Label();
             this.listBoxCustomers = new System.Windows.Forms.ListBox();
+            this.buttonNewOrder = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -165,16 +166,17 @@ namespace CRUD
             this.listBoxProducts.Name = "listBoxProducts";
             this.listBoxProducts.Size = new System.Drawing.Size(794, 199);
             this.listBoxProducts.TabIndex = 0;
+            this.tabPage2.Controls.Add(this.buttonNewOrder);
             this.tabPage2.Controls.Add(this.listBoxCustomerItemsOrders);
             this.tabPage2.Controls.Add(this.listBoxCustomerOrders);
-            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.buttonCreateCustomer);
             this.tabPage2.Controls.Add(this.labelCustomer);
             this.tabPage2.Controls.Add(this.listBoxCustomers);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(925, 464);
+            this.tabPage2.Size = new System.Drawing.Size(925, 467);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Customer";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -192,13 +194,16 @@ namespace CRUD
             this.listBoxCustomerOrders.Name = "listBoxCustomerOrders";
             this.listBoxCustomerOrders.Size = new System.Drawing.Size(300, 349);
             this.listBoxCustomerOrders.TabIndex = 3;
-            this.button1.Location = new System.Drawing.Point(4, 412);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(244, 47);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Create new customer";
-            this.button1.UseVisualStyleBackColor = true;
+            this.listBoxCustomerOrders.SelectedIndexChanged +=
+                new System.EventHandler(this.listBoxCustomerOrders_SelectedIndexChanged);
+            this.buttonCreateCustomer.Location = new System.Drawing.Point(4, 412);
+            this.buttonCreateCustomer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonCreateCustomer.Name = "buttonCreateCustomer";
+            this.buttonCreateCustomer.Size = new System.Drawing.Size(244, 47);
+            this.buttonCreateCustomer.TabIndex = 2;
+            this.buttonCreateCustomer.Text = "Create new customer";
+            this.buttonCreateCustomer.UseVisualStyleBackColor = true;
+            this.buttonCreateCustomer.Click += new System.EventHandler(this.buttonCreateCustomer_Click);
             this.labelCustomer.Location = new System.Drawing.Point(4, 16);
             this.labelCustomer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCustomer.Name = "labelCustomer";
@@ -213,6 +218,16 @@ namespace CRUD
             this.listBoxCustomers.Name = "listBoxCustomers";
             this.listBoxCustomers.Size = new System.Drawing.Size(244, 349);
             this.listBoxCustomers.TabIndex = 0;
+            this.listBoxCustomers.SelectedIndexChanged +=
+                new System.EventHandler(this.listBoxCustomers_SelectedIndexChanged);
+            this.buttonNewOrder.Location = new System.Drawing.Point(300, 412);
+            this.buttonNewOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonNewOrder.Name = "buttonNewOrder";
+            this.buttonNewOrder.Size = new System.Drawing.Size(244, 47);
+            this.buttonNewOrder.TabIndex = 5;
+            this.buttonNewOrder.Text = "Create new order";
+            this.buttonNewOrder.UseVisualStyleBackColor = true;
+            this.buttonNewOrder.Click += new System.EventHandler(this.buttonNewOrder_Click);
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
@@ -255,9 +270,10 @@ namespace CRUD
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.Button buttonConfirm;
         private System.Windows.Forms.ListBox listBoxAdminOrders;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCreateCustomer;
         private System.Windows.Forms.ListBox listBoxCustomerItemsOrders;
         private System.Windows.Forms.ListBox listBoxCustomerOrders;
+        private System.Windows.Forms.Button buttonNewOrder;
         private System.Windows.Forms.TabPage tabPage2;
     }
 }

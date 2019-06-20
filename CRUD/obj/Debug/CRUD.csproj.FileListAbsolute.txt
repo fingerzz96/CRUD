@@ -26,3 +26,5 @@ C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.pdb
 C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.InsertProductForm.resources
 C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.UpdateProductForm.resources
 C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.FormLog.resources
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.FormCreateNewOrder.resources
+C:\Users\Domaci\RiderProjects\CRUD\CRUD\obj\Debug\CRUD.FormNewCustomer.resources

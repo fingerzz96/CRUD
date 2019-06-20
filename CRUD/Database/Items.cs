@@ -18,6 +18,8 @@ namespace CRUD
             Price = price;
         }
 
+        public Items() { }
+
         public long Id { get; set; }
         public long OrdersId { get; set; }
         public long ProductId { get; set; }

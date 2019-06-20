@@ -9,12 +9,12 @@ namespace CRUD
 {
     public partial class Form1 : Form
     {
+        private readonly ILogger _logger;
         private List<Orders> _adminOrderses;
 
         private List<Customer> _customers;
 
         private List<Items> _itemses;
-        private readonly ILogger _logger;
 
         private List<Orders> _orderses;
 
@@ -193,5 +193,44 @@ namespace CRUD
                     }
             }
         }
+
+        private void buttonCreateCustomer_Click(object sender, EventArgs e)
+        {
+            if (database != null)
+            {
+                var newCustomerForm = new FormNewCustomer();
+
+                if (newCustomerForm.ShowDialog(this) == DialogResult.OK)
+                    try
+                    {
+                        database.CreateNewCustomer(newCustomerForm.NameSurname, newCustomerForm.Address);
+                        _customers = database.ReturnAllCustomers();
+                        ConnectCustomers();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(@"During inserting the data came unexpected error! " + exception.Message);
+                    }
+            }
+        }
+
+        private void listBoxCustomers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConnectOrders();
+
+            var orders = (Orders) listBoxCustomerOrders.SelectedItem;
+            if (orders != null)
+                ConnectItemOrders(orders.Id);
+            else
+                ConnectItemOrders(null);
+        }
+
+        private void listBoxCustomerOrders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var orders = (Orders) listBoxCustomerOrders.SelectedItem;
+            if (orders != null) ConnectItemOrders(orders.Id);
+        }
+
+        private void buttonNewOrder_Click(object sender, EventArgs e) { }
     }
 }
