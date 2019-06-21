@@ -302,5 +302,50 @@ namespace CRUD
                 }
             }
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            var index = listBoxProducts.SelectedIndex;
+
+            if (index >= 0)
+            {
+                var product = _products[index];
+                try
+                {
+                    database.DeleteProduct(product.Id, product.Name, product.CategoriesId, product.Price,
+                        product.Description);
+                    _products = database.ReturnAllProducts();
+                    ConnectProducts();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(@"During inserting the data came unexpected error! " + exception.Message);
+                }
+            }
+        }
+
+        private void buttonConfirm_Click(object sender, EventArgs e)
+        {
+            var orders = (Orders) listBoxAdminOrders.SelectedItem;
+            database.UpdateOrderStatus(orders.Id, 2);
+            _adminOrderses = database.ReturnaAllOrders();
+            ConnectAdminOrders();
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            var orders = (Orders) listBoxAdminOrders.SelectedItem;
+            database.UpdateOrderStatus(orders.Id, 3);
+            _adminOrderses = database.ReturnaAllOrders();
+            ConnectAdminOrders();
+        }
+
+        private void buttonTerminate_Click(object sender, EventArgs e)
+        {
+            var orders = (Orders) listBoxAdminOrders.SelectedItem;
+            database.UpdateOrderStatus(orders.Id, 4);
+            _adminOrderses = database.ReturnaAllOrders();
+            ConnectAdminOrders();
+        }
     }
 }

@@ -115,6 +115,7 @@ namespace CRUD
             this.buttonTerminate.TabIndex = 7;
             this.buttonTerminate.Text = "Terminate";
             this.buttonTerminate.UseVisualStyleBackColor = true;
+            this.buttonTerminate.Click += new System.EventHandler(this.buttonTerminate_Click);
             this.buttonSend.Location = new System.Drawing.Point(10, 247);
             this.buttonSend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSend.Name = "buttonSend";
@@ -122,6 +123,7 @@ namespace CRUD
             this.buttonSend.TabIndex = 6;
             this.buttonSend.Text = "Send";
             this.buttonSend.UseVisualStyleBackColor = true;
+            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             this.buttonConfirm.Location = new System.Drawing.Point(10, 208);
             this.buttonConfirm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonConfirm.Name = "buttonConfirm";
@@ -129,6 +131,7 @@ namespace CRUD
             this.buttonConfirm.TabIndex = 5;
             this.buttonConfirm.Text = "Confirm";
             this.buttonConfirm.UseVisualStyleBackColor = true;
+            this.buttonConfirm.Click += new System.EventHandler(this.buttonConfirm_Click);
             this.listBoxAdminOrders.FormattingEnabled = true;
             this.listBoxAdminOrders.ItemHeight = 15;
             this.listBoxAdminOrders.Location = new System.Drawing.Point(125, 208);
@@ -143,6 +146,7 @@ namespace CRUD
             this.buttonDelete.TabIndex = 3;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             this.buttonUpdate.Location = new System.Drawing.Point(8, 45);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonUpdate.Name = "buttonUpdate";
@@ -176,7 +180,7 @@ namespace CRUD
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(925, 467);
+            this.tabPage2.Size = new System.Drawing.Size(925, 464);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Customer";
             this.tabPage2.UseVisualStyleBackColor = true;

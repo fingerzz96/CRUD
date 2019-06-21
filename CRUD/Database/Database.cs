@@ -84,11 +84,23 @@ namespace CRUD
                                   $"{Items.PriceString} REAL)";
 
                     ExecuteQuery(commandText, connection);
+
+                    commandText =
+                        $"INSERT INTO {Categories.TableName} ({Categories.IdString}, {Categories.NameString}) " +
+                        "VALUES (1, 'drugstore'), (2, 'food'), (3, 'electronics')";
+
+                    ExecuteQuery(commandText, connection);
+
+                    commandText =
+                        $"INSERT INTO {State.TableName} ({State.IdString}, {State.NameString}) " +
+                        "VALUES (1, 'Created'), (2, 'Confirm'),(3, 'Sended'), (4, 'Terminated')";
+
+                    ExecuteQuery(commandText, connection);
                 }
             }
         }
 
-        public void InsertProduct(string name, int categorieId, int price, string description)
+        public void InsertProduct(string name, long categorieId, double price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -115,7 +127,7 @@ namespace CRUD
             }
         }
 
-        public void UpdateProduct(long id, string name, int categorieId, int price, string description)
+        public void UpdateProduct(long id, string name, long categorieId, double price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -141,7 +153,7 @@ namespace CRUD
             }
         }
 
-        public void DeleteProduct(long id, string name, int categorieId, int price, string description)
+        public void DeleteProduct(long id, string name, long categorieId, double price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -202,6 +214,8 @@ namespace CRUD
                     command.Parameters.AddWithValue($"{Orders.PriceString}", "0");
                     command.Parameters.AddWithValue($"{Orders.StateIdString}", "1");
                 }
+
+                var log = $"{DateTime.Now} Customer with {userId} created order";
             }
         }
 
@@ -246,6 +260,27 @@ namespace CRUD
                     orderItemCommand.ExecuteNonQuery();
                 }
 
+                connection.Close();
+            }
+        }
+
+        public void UpdateOrderStatus(long id, long state)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var commandText =
+                    $"UPDATE {Orders.TableName} SET {Orders.StateIdString} = @{Orders.StateIdString} WHERE {Orders.IdString} = @{Orders.IdString}";
+                using (var command = new SQLiteCommand(commandText, connection))
+                {
+                    command.Parameters.AddWithValue($"@{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Orders.StateIdString}", state);
+                    command.ExecuteNonQuery();
+                }
+
+                var log = $"{DateTime.Now} {state} order of {id} past succesfully";
+                _logger.Log(log);
                 connection.Close();
             }
         }

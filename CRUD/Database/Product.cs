@@ -1,5 +1,3 @@
-using System;
-
 namespace CRUD
 {
     public class Product
@@ -11,13 +9,7 @@ namespace CRUD
         public const string PriceString = "price";
         public const string DescriptionString = "description";
 
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public int CategoriesId { get; set; }
-        public double Price { get; set; }
-        public string Description { get; set; }
-
-        public Product(long id, string name, int categoriesID, double price, string description)
+        public Product(long id, string name, long categoriesID, double price, string description)
         {
             Id = id;
             Name = name;
@@ -25,6 +17,12 @@ namespace CRUD
             Price = price;
             Description = description;
         }
+
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public long CategoriesId { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
 
         public override string ToString()
         {
