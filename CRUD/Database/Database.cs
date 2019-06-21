@@ -199,7 +199,7 @@ namespace CRUD
                 using (var command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"{Orders.CustomerIdString}", userId);
-                    command.Parameters.AddWithValue($"{Orders.PriceString}", "");
+                    command.Parameters.AddWithValue($"{Orders.PriceString}", "0");
                     command.Parameters.AddWithValue($"{Orders.StateIdString}", "1");
                 }
             }

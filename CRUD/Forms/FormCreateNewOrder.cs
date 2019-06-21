@@ -48,8 +48,9 @@ namespace CRUD
                     Count = (long) numericUpDown1.Value,
                     ProductId = product.Id
                 });
-                Itemses = itemses;
             }
+
+            Itemses = itemses;
         }
 
         private void buttonFinish_Click(object sender, EventArgs e)

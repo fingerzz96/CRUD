@@ -271,6 +271,7 @@ namespace CRUD
                             database.CreateOrder(customer.Id);
                             _orderses = database.ReturnaAllOrders();
                             _adminOrderses = database.ReturnaAllOrders();
+                            //TODO: Najit zpusob aby nedelal null;
                             var orderId = database.ReturnaAllOrders().LastOrDefault().Id;
 
                             if (createNewOrder.Itemses != null)
