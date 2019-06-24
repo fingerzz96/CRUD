@@ -101,7 +101,7 @@ namespace CRUD
             {
                 if (bindingSourceItemsOrders != null && _itemses != null)
                 {
-                    if (listBoxCustomerItemsOrders == null) listBoxCustomerItemsOrders.Items.Clear();
+                    if (listBoxCustomerItemsOrders == null) listBoxCustomerItemsOrders?.Items.Clear();
 
                     bindingSourceItemsOrders.DataSource = _itemses.Where(
                         x => x.OrdersId == orderId.Value

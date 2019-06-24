@@ -19,7 +19,7 @@ namespace CRUD
                 foreach (var item in orderItems)
                 {
                     var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                    totalPrice = totalPrice + (product.Price * item.Count);
+                    if (product != null) totalPrice = totalPrice + (product.Price * item.Count);
                     cartTotalPrice += totalPrice;
                 }
 
@@ -31,7 +31,7 @@ namespace CRUD
                 foreach (var item in orderItems)
                 {
                     var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                    totalPrice = totalPrice + (product.Price * item.Count);
+                    if (product != null) totalPrice = totalPrice + (product.Price * item.Count);
                     cartTotalPrice += totalPrice;
                 }
 
@@ -42,7 +42,7 @@ namespace CRUD
             foreach (var item in orderItems)
             {
                 var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                totalPrice = totalPrice + (product.Price * item.Count);
+                if (product != null) totalPrice = totalPrice + (product.Price * item.Count);
                 cartTotalPrice += totalPrice;
             }
 

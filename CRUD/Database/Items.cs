@@ -29,7 +29,7 @@ namespace CRUD
         public override string ToString()
         {
             return $"Id: {Id}, OrdersId: {OrdersId}, ProductId: {ProductId}," +
-                   $" Count: {Count}, Price: {Price}";
+                   $" Count: {Count}";
         }
     }
 }
