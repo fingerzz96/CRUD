@@ -87,13 +87,13 @@ namespace CRUD
 
                     commandText =
                         $"INSERT INTO {Categories.TableName} ({Categories.IdString}, {Categories.NameString}) " +
-                        "VALUES (1, 'drugstore'), (2, 'food'), (3, 'electronics')";
+                        "VALUES (@1, @'drugstore'), (@2, @'food'), (@3, @'electronics')";
 
                     ExecuteQuery(commandText, connection);
 
                     commandText =
                         $"INSERT INTO {State.TableName} ({State.IdString}, {State.NameString}) " +
-                        "VALUES (1, 'Created'), (2, 'Confirm'),(3, 'Sended'), (4, 'Terminated')";
+                        "VALUES (@1, @'Created'), (@2, @'Confirm'),(@3, @'Sended'), (@4, @'Terminated')";
 
                     ExecuteQuery(commandText, connection);
                 }
@@ -202,17 +202,17 @@ namespace CRUD
 
                 var commandText =
                     $"INSERT INTO {Orders.TableName} " +
-                    $"({Orders.IdString}, " +
-                    $"{Orders.CustomerIdString}, " +
+                    $"({Orders.CustomerIdString}, " +
                     $"{Orders.PriceString}, " +
                     $"{Orders.StateIdString}) " +
-                    $"VALUES (@{Orders.IdString}, @{Orders.CustomerIdString}, @{Orders.PriceString}, @{Orders.StateIdString})";
+                    $"VALUES (@{Orders.CustomerIdString}, @{Orders.PriceString}, @{Orders.StateIdString})";
 
                 using (var command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"{Orders.CustomerIdString}", userId);
                     command.Parameters.AddWithValue($"{Orders.PriceString}", "0");
                     command.Parameters.AddWithValue($"{Orders.StateIdString}", "1");
+                    command.ExecuteNonQuery();
                 }
 
                 var log = $"{DateTime.Now} Customer with {userId} created order";
@@ -274,7 +274,7 @@ namespace CRUD
                     $"UPDATE {Orders.TableName} SET {Orders.StateIdString} = @{Orders.StateIdString} WHERE {Orders.IdString} = @{Orders.IdString}";
                 using (var command = new SQLiteCommand(commandText, connection))
                 {
-                    command.Parameters.AddWithValue($"@{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Orders.IdString}", id);
                     command.Parameters.AddWithValue($"@{Orders.StateIdString}", state);
                     command.ExecuteNonQuery();
                 }
