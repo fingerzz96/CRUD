@@ -268,7 +268,7 @@ namespace CRUD
                     if (createNewOrder.ShowDialog(this) == DialogResult.OK && customer != null)
                         try
                         {
-                            database.CreateOrder(customer.Id);
+                            database.CreateOrder(customer.Id, 0.0);
                             _orderses = database.ReturnaAllOrders();
                             _adminOrderses = database.ReturnaAllOrders();
                             //TODO: Najit zpusob aby nedelal null;

@@ -9,7 +9,7 @@ namespace CRUD
         public const string CountString = "count";
         public const string PriceString = "price";
 
-        public Items(long id, long ordersId, long productId, long count, long price)
+        public Items(long id, long ordersId, long productId, long count, double price)
         {
             Id = id;
             OrdersId = ordersId;
@@ -24,7 +24,7 @@ namespace CRUD
         public long OrdersId { get; set; }
         public long ProductId { get; set; }
         public long Count { get; set; }
-        public long Price { get; set; }
+        public double Price { get; set; }
 
         public override string ToString()
         {

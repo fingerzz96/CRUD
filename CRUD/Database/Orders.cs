@@ -12,7 +12,7 @@ namespace CRUD
 
         public Orders() { }
 
-        public Orders(long id, long customerId, long price, long stateId)
+        public Orders(long id, long customerId, double price, long stateId)
         {
             Id = id;
             CustomerId = customerId;
@@ -22,7 +22,7 @@ namespace CRUD
 
         public long Id { get; set; }
         public long CustomerId { get; set; }
-        public long Price { get; set; }
+        public double Price { get; set; }
         public long StateId { get; set; }
 
         public List<Items> Itemses { get; set; }

@@ -50,7 +50,7 @@ namespace CRUD
                                   $"({Product.IdString} INTEGER PRIMARY KEY, " +
                                   $"{Product.NameString} VARCHAR(20) NOT NULL, " +
                                   $"{Product.CategoriesIdString}  INTEGER REFERENCES Categories(categoriesID), " +
-                                  $"{Product.PriceString} INTEGER, " +
+                                  $"{Product.PriceString} REAL, " +
                                   $"{Product.DescriptionString} VARCHAR(500) NOT NULL)";
 
                     ExecuteQuery(commandText, connection);
@@ -71,7 +71,7 @@ namespace CRUD
                     commandText = $"CREATE TABLE {Orders.TableName} " +
                                   $"({Orders.IdString} INTEGER PRIMARY KEY, " +
                                   $"{Orders.CustomerIdString} INTEGER REFERENCES Customer(customerID), " +
-                                  $"{Orders.PriceString} INTEGER, " +
+                                  $"{Orders.PriceString} REAL, " +
                                   $"{Orders.StateIdString} INTEGER REFERENCES State(stateID))";
 
                     ExecuteQuery(commandText, connection);
@@ -81,13 +81,13 @@ namespace CRUD
                                   $"{Items.OrderIdString} INTEGER REFERENCES Orders(orderID), " +
                                   $"{Items.ProductIdString} INTEGER REFERENCES Product(productID), " +
                                   $"{Items.CountString} INTEGER, " +
-                                  $"{Items.PriceString} INTEGER)";
+                                  $"{Items.PriceString} REAL)";
 
                     ExecuteQuery(commandText, connection);
 
                     commandText =
                         $"INSERT INTO {Categories.TableName} ({Categories.IdString}, {Categories.NameString}) " +
-                        "VALUES (1, 'drugstore'), (2, @'food'), (3, 'electronics')";
+                        "VALUES (1, 'drugstore'), (2, 'food'), (3, 'electronics')";
 
                     ExecuteQuery(commandText, connection);
 
@@ -100,7 +100,7 @@ namespace CRUD
             }
         }
 
-        public void InsertProduct(string name, long categorieId, long price, string description)
+        public void InsertProduct(string name, long categorieId, double price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -127,7 +127,7 @@ namespace CRUD
             }
         }
 
-        public void UpdateProduct(long id, string name, long categorieId, long price, string description)
+        public void UpdateProduct(long id, string name, long categorieId, double price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -153,7 +153,7 @@ namespace CRUD
             }
         }
 
-        public void DeleteProduct(long id, string name, long categorieId, long price, string description)
+        public void DeleteProduct(long id, string name, long categorieId, double price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -194,7 +194,7 @@ namespace CRUD
             }
         }
 
-        public void CreateOrder(long userId)
+        public void CreateOrder(long userId, double itemsPrice)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -210,7 +210,7 @@ namespace CRUD
                 using (var command = new SQLiteCommand(commandText, connection))
                 {
                     command.Parameters.AddWithValue($"{Orders.CustomerIdString}", userId);
-                    command.Parameters.AddWithValue($"{Orders.PriceString}", "0");
+                    command.Parameters.AddWithValue($"{Orders.PriceString}", itemsPrice);
                     command.Parameters.AddWithValue($"{Orders.StateIdString}", "1");
                     command.ExecuteNonQuery();
                 }
@@ -249,14 +249,16 @@ namespace CRUD
                     $"INSERT INTO {Items.TableName} " +
                     $"({Items.OrderIdString}, " +
                     $"{Items.ProductIdString}, " +
-                    $"{Items.CountString}) " +
-                    $"VALUES(@{Items.OrderIdString}, @{Items.ProductIdString}, @{Items.CountString})";
+                    $"{Items.CountString}" +
+                    $"{Items.PriceString}) " +
+                    $"VALUES (@{Items.OrderIdString}, @{Items.ProductIdString}, @{Items.CountString}, @{Items.PriceString})";
 
                 using (var orderItemCommand = new SQLiteCommand(commandText, connection))
                 {
                     orderItemCommand.Parameters.AddWithValue($"@{Items.OrderIdString}", orderId);
                     orderItemCommand.Parameters.AddWithValue($"@{Items.ProductIdString}", items.ProductId);
                     orderItemCommand.Parameters.AddWithValue($"@{Items.CountString}", items.Count);
+                    orderItemCommand.Parameters.AddWithValue($"@{Items.PriceString}", items.Price);
                     orderItemCommand.ExecuteNonQuery();
                 }
 
@@ -303,7 +305,7 @@ namespace CRUD
                             long id = Convert.ToInt32(reader[Product.IdString]);
                             var name = Convert.ToString((string) reader[Product.NameString]);
                             var categorieId = Convert.ToInt32(reader[Product.CategoriesIdString]);
-                            var price = Convert.ToInt32(reader[Product.PriceString]);
+                            var price = Convert.ToDouble(reader[Product.PriceString]);
                             var description = Convert.ToString(reader[Product.DescriptionString]);
 
                             var product = new Product(id, name, categorieId, price, description);
@@ -337,7 +339,7 @@ namespace CRUD
                             long id = Convert.ToInt32(reader[Orders.IdString]);
                             long stateId = Convert.ToInt32(reader[Orders.StateIdString]);
                             long customerId = Convert.ToInt32(reader[Orders.CustomerIdString]);
-                            long price = Convert.ToInt32(reader[Orders.PriceString]);
+                            var price = Convert.ToDouble(reader[Orders.PriceString]);
 
                             var order = new Orders(id, customerId, price, stateId);
                             if (order.CustomerId == userId) orderses.Add(order);
@@ -372,7 +374,7 @@ namespace CRUD
                             long id = Convert.ToInt32(reader[Orders.IdString]);
                             long stateId = Convert.ToInt32(reader[Orders.StateIdString]);
                             long customerId = Convert.ToInt32(reader[Orders.CustomerIdString]);
-                            long price = Convert.ToInt32(reader[Orders.PriceString]);
+                            var price = Convert.ToDouble(reader[Orders.PriceString]);
 
                             var order = new Orders(id, customerId, price, stateId);
                             orderses.Add(order);
@@ -405,7 +407,7 @@ namespace CRUD
                             long ordersId = Convert.ToInt32(reader[Items.OrderIdString]);
                             long productId = Convert.ToInt32(reader[Items.ProductIdString]);
                             long count = Convert.ToInt32(reader[Items.CountString]);
-                            long price = Convert.ToInt32(reader[Items.PriceString]);
+                            var price = Convert.ToDouble(reader[Items.PriceString]);
 
                             var items = new Items(id, ordersId, productId, count, price);
                             orderItems.Add(items);
