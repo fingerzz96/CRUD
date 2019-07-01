@@ -50,7 +50,7 @@ namespace CRUD
                                   $"({Product.IdString} INTEGER PRIMARY KEY, " +
                                   $"{Product.NameString} VARCHAR(20) NOT NULL, " +
                                   $"{Product.CategoriesIdString}  INTEGER REFERENCES Categories(categoriesID), " +
-                                  $"{Product.PriceString} REAL, " +
+                                  $"{Product.PriceString} INTEGER, " +
                                   $"{Product.DescriptionString} VARCHAR(500) NOT NULL)";
 
                     ExecuteQuery(commandText, connection);
@@ -71,7 +71,7 @@ namespace CRUD
                     commandText = $"CREATE TABLE {Orders.TableName} " +
                                   $"({Orders.IdString} INTEGER PRIMARY KEY, " +
                                   $"{Orders.CustomerIdString} INTEGER REFERENCES Customer(customerID), " +
-                                  $"{Orders.PriceString} REAL, " +
+                                  $"{Orders.PriceString} INTEGER, " +
                                   $"{Orders.StateIdString} INTEGER REFERENCES State(stateID))";
 
                     ExecuteQuery(commandText, connection);
@@ -81,26 +81,26 @@ namespace CRUD
                                   $"{Items.OrderIdString} INTEGER REFERENCES Orders(orderID), " +
                                   $"{Items.ProductIdString} INTEGER REFERENCES Product(productID), " +
                                   $"{Items.CountString} INTEGER, " +
-                                  $"{Items.PriceString} REAL)";
+                                  $"{Items.PriceString} INTEGER)";
 
                     ExecuteQuery(commandText, connection);
 
                     commandText =
                         $"INSERT INTO {Categories.TableName} ({Categories.IdString}, {Categories.NameString}) " +
-                        "VALUES (@1, @'drugstore'), (@2, @'food'), (@3, @'electronics')";
+                        "VALUES (1, 'drugstore'), (2, @'food'), (3, 'electronics')";
 
                     ExecuteQuery(commandText, connection);
 
                     commandText =
                         $"INSERT INTO {State.TableName} ({State.IdString}, {State.NameString}) " +
-                        "VALUES (@1, @'Created'), (@2, @'Confirm'),(@3, @'Sended'), (@4, @'Terminated')";
+                        "VALUES (1, 'Created'), (2, 'Confirm'),(3, 'Sended'), (4, 'Terminated')";
 
                     ExecuteQuery(commandText, connection);
                 }
             }
         }
 
-        public void InsertProduct(string name, long categorieId, double price, string description)
+        public void InsertProduct(string name, long categorieId, long price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -127,7 +127,7 @@ namespace CRUD
             }
         }
 
-        public void UpdateProduct(long id, string name, long categorieId, double price, string description)
+        public void UpdateProduct(long id, string name, long categorieId, long price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -153,7 +153,7 @@ namespace CRUD
             }
         }
 
-        public void DeleteProduct(long id, string name, long categorieId, double price, string description)
+        public void DeleteProduct(long id, string name, long categorieId, long price, string description)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -303,7 +303,7 @@ namespace CRUD
                             long id = Convert.ToInt32(reader[Product.IdString]);
                             var name = Convert.ToString((string) reader[Product.NameString]);
                             var categorieId = Convert.ToInt32(reader[Product.CategoriesIdString]);
-                            var price = Convert.ToDouble(reader[Product.PriceString]);
+                            var price = Convert.ToInt32(reader[Product.PriceString]);
                             var description = Convert.ToString(reader[Product.DescriptionString]);
 
                             var product = new Product(id, name, categorieId, price, description);
