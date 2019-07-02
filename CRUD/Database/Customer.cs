@@ -7,10 +7,6 @@ namespace CRUD
         public const string NameString = "name";
         public const string AddressString = "address";
 
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-
         public Customer(long id, string name, string address)
         {
             Id = id;
@@ -18,9 +14,10 @@ namespace CRUD
             Address = address;
         }
 
-        public override string ToString()
-        {
-            return $"Id: {Id}, Name: {Name}, Address: {Address}";
-        }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+
+        public override string ToString() { return $"Id: {Id}, Name: {Name}, Address: {Address}"; }
     }
 }

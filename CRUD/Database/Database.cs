@@ -229,9 +229,10 @@ namespace CRUD
                     $"UPDATE {Orders.TableName} " +
                     $"SET {Orders.PriceString} = @{Orders.PriceString} " +
                     $"WHERE {Orders.IdString} = @{Orders.IdString}";
+
                 using (var command = new SQLiteCommand(commandText, connection))
                 {
-                    command.Parameters.AddWithValue($"@{Product.IdString}", id);
+                    command.Parameters.AddWithValue($"@{Orders.IdString}", id);
                     command.Parameters.AddWithValue($"@{Orders.PriceString}", price);
                     command.ExecuteNonQuery();
                 }
@@ -249,7 +250,7 @@ namespace CRUD
                     $"INSERT INTO {Items.TableName} " +
                     $"({Items.OrderIdString}, " +
                     $"{Items.ProductIdString}, " +
-                    $"{Items.CountString}" +
+                    $"{Items.CountString}, " +
                     $"{Items.PriceString}) " +
                     $"VALUES (@{Items.OrderIdString}, @{Items.ProductIdString}, @{Items.CountString}, @{Items.PriceString})";
 
@@ -281,7 +282,7 @@ namespace CRUD
                     command.ExecuteNonQuery();
                 }
 
-                var log = $"{DateTime.Now} {state} order of {id} past succesfully";
+                var log = $"{DateTime.Now}: {state} order of order id #{id} past succesfully";
                 _logger.Log(log);
                 connection.Close();
             }

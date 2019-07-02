@@ -1,5 +1,3 @@
-using System;
-
 namespace CRUD
 {
     public abstract class Discount

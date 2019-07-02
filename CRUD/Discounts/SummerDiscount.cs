@@ -7,19 +7,19 @@ namespace CRUD
     {
         public override double ReturnPrice(object items, object items2, object items3)
         {
-            List<Items> orderItems = (List<Items>) items;
-            List<Product> products = (List<Product>) items2;
-            List<Orders> orders = (List<Orders>) items3;
-            int count = orders.Count;
-            double cartTotalPrice = 0.0;
-            double totalPrice = 0.0;
+            var orderItems = (List<Items>) items;
+            var products = (List<Product>) items2;
+            var orders = (List<Orders>) items3;
+            var count = orders.Count;
+            var cartTotalPrice = 0.0;
+            var totalPrice = 0.0;
 
             if (count >= 5 && count < 10)
             {
                 foreach (var item in orderItems)
                 {
                     var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                    if (product != null) totalPrice = totalPrice + (product.Price * item.Count);
+                    if (product != null) totalPrice = totalPrice + product.Price * item.Count;
                     cartTotalPrice += totalPrice;
                 }
 
@@ -31,7 +31,7 @@ namespace CRUD
                 foreach (var item in orderItems)
                 {
                     var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                    if (product != null) totalPrice = totalPrice + (product.Price * item.Count);
+                    if (product != null) totalPrice = totalPrice + product.Price * item.Count;
                     cartTotalPrice += totalPrice;
                 }
 
@@ -42,7 +42,7 @@ namespace CRUD
             foreach (var item in orderItems)
             {
                 var product = products.FirstOrDefault(p => p.Id == item.ProductId);
-                if (product != null) totalPrice = totalPrice + (product.Price * item.Count);
+                if (product != null) totalPrice = totalPrice + product.Price * item.Count;
                 cartTotalPrice += totalPrice;
             }
 
