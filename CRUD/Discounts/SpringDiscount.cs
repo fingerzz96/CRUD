@@ -30,6 +30,7 @@ namespace CRUD
                 if (item.Count >= 3 && item.Count < 8)
                 {
                     if (product != null)
+                        //totalPrice = totalPrice + product.Price * 11 + product.Price * (item.Count - 11) * 0.6;
                         totalPrice = SpringDiscountMethod(totalPrice, product.Price, item.Count, 2, 0.8);
                     cartTotalPrice += totalPrice;
                 }

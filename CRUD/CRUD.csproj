@@ -54,27 +54,28 @@
     <Compile Include="Discounts\AutumnDiscount.cs" />
     <Compile Include="Discounts\Discount.cs" />
     <Compile Include="Discounts\EmptyDiscount.cs" />
+    <Compile Include="Discounts\NameDiscount.cs" />
     <Compile Include="Discounts\SpringDiscount.cs" />
     <Compile Include="Discounts\SummerDiscount.cs" />
     <Compile Include="Discounts\WinterDiscount.cs" />
-      <Compile Include="Forms\FormCreateNewOrder.cs">
-          <SubType>Form</SubType>
-      </Compile>
-      <Compile Include="Forms\FormCreateNewOrder.Designer.cs">
-          <DependentUpon>FormCreateNewOrder.cs</DependentUpon>
-      </Compile>
+    <Compile Include="Forms\FormCreateNewOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCreateNewOrder.Designer.cs">
+      <DependentUpon>FormCreateNewOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormLog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormLog.Designer.cs">
       <DependentUpon>FormLog.cs</DependentUpon>
     </Compile>
-      <Compile Include="Forms\FormNewCustomer.cs">
-          <SubType>Form</SubType>
-      </Compile>
-      <Compile Include="Forms\FormNewCustomer.Designer.cs">
-          <DependentUpon>FormNewCustomer.cs</DependentUpon>
-      </Compile>
+    <Compile Include="Forms\FormNewCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNewCustomer.Designer.cs">
+      <DependentUpon>FormNewCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InsertProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,15 +107,15 @@
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-      <EmbeddedResource Include="Forms\FormCreateNewOrder.resx">
-          <DependentUpon>FormCreateNewOrder.cs</DependentUpon>
-      </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCreateNewOrder.resx">
+      <DependentUpon>FormCreateNewOrder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormLog.resx">
       <DependentUpon>FormLog.cs</DependentUpon>
     </EmbeddedResource>
-      <EmbeddedResource Include="Forms\FormNewCustomer.resx">
-          <DependentUpon>FormNewCustomer.cs</DependentUpon>
-      </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormNewCustomer.resx">
+      <DependentUpon>FormNewCustomer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProductForm.resx">
       <DependentUpon>InsertProductForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -17,6 +17,8 @@ namespace CRUD
         private List<Items> _itemses;
 
         private List<Orders> _orderses;
+        
+        
 
         private List<Product> _products;
         public BindingSource bindingSourceAdminOrders = new BindingSource();
@@ -116,6 +118,8 @@ namespace CRUD
 
         private Discount ReturnDiscount(DateTime dateTime)
         {
+            string nameDiscount = "Lubomil";
+            var customerName = _customers.Find(x => x.Name.Contains(nameDiscount));
             if (dateTime.Day >= 21 && dateTime.Month >= 3 && dateTime.Month < 6) return new SpringDiscount();
 
             if (dateTime.Day >= 21 && dateTime.Month >= 6 && dateTime.Month < 9) return new SummerDiscount();
@@ -123,6 +127,10 @@ namespace CRUD
             if (dateTime.Day >= 23 && dateTime.Month >= 9 && dateTime.Month < 12) return new AutumnDiscount();
 
             if (dateTime.Day >= 21 && dateTime.Month >= 12 && dateTime.Month < 3) return new WinterDiscount();
+            if (customerName != null)
+            {
+                return new NameDiscount();
+            }
 
             return new EmptyDiscount();
         }
